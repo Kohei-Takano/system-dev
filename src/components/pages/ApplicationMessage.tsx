@@ -1,4 +1,4 @@
-import {memo,FC}from"react";
-export const ApplicationMessage: FC = memo(()=>{
+import {memo,VFC}from"react";
+export const ApplicationMessage: VFC = memo(()=>{
     return <p>応募メッセージページです</p>;
 });

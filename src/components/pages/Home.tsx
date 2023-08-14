@@ -1,4 +1,4 @@
-import {memo,FC}from"react";
-export const Home: FC = memo(()=>{
+import {memo,VFC}from"react";
+export const Home: VFC = memo(()=>{
     return <p>Homeページです</p>;
 });

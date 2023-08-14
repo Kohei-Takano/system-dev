@@ -1,4 +1,4 @@
-import {memo,FC}from"react";
-export const UserSearchResult: FC = memo(()=>{
+import {memo,VFC}from"react";
+export const UserSearchResult: VFC = memo(()=>{
     return <p>ユーザ検索結果ページです</p>;
 });

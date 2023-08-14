@@ -5,6 +5,7 @@ import { ContentRecruitment } from "../components/pages/ContentRecruitment";
 import { FriendsList } from "../components/pages/FriendsList";
 import { Home } from "../components/pages/Home";
 import { NewRecruitment } from "../components/pages/NewRecruitment";
+import { Page404 } from "../components/pages/Page404";
 import { ParticipantsMessages } from "../components/pages/ParticipantsMessages";
 import { RecruitmentDetail } from "../components/pages/RecruitmentDetail";
 import {RecruitmentMessages}from"../components/pages/RecruitmentMessages";
@@ -101,5 +102,10 @@ export const homeRoutes = [
         path:"/user_info",
         exact:true,
         children:<UserRegister/>
+    },
+    {
+        path:"*",
+        exact:false,
+        children:<Page404/>
     }
 ]

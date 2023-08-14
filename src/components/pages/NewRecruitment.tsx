@@ -1,4 +1,4 @@
-import {memo,FC}from"react";
-export const NewRecruitment: FC = memo(()=>{
+import {memo,VFC}from"react";
+export const NewRecruitment: VFC = memo(()=>{
     return <p>新規募集ページです</p>;
 });

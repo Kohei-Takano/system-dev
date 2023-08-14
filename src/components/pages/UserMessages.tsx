@@ -1,4 +1,4 @@
-import {memo,FC}from"react";
-export const UserMessages: FC = memo(()=>{
+import {memo,VFC}from"react";
+export const UserMessages: VFC = memo(()=>{
     return <p>ユーザメッセージページです</p>;
 });
