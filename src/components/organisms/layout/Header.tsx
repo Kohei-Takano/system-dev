@@ -12,7 +12,7 @@ export const Header: VFC = memo(()=>{
     return (
     <>
     <Flex as="nav" 
-          bg="teal.500" 
+          bg="purple.500" 
           color="gray.50" 
           align="center" 
           justify="space-between" 
