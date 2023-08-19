@@ -20,7 +20,7 @@ export const Login: VFC = memo(()=>{
     <>
     <Flex align="center" justify="center" height="70vh">
         <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
-            <Heading as="h1" size="lg" textAlign="center">ログイン</Heading>
+            <Heading as="h1" fontSize="lg" textAlign="center">ログイン</Heading>
             <Divider my={4}/>
             <Stack spacing={6} py={4} px={10}>
                 <Input placeholder="ユーザID" value={userId} onChange={onChangeUserId}/>
@@ -31,7 +31,7 @@ export const Login: VFC = memo(()=>{
     </Flex>
     <Flex align="center" justify="center" height="30vh">
         <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
-            <Heading as="h1" size="lg" textAlign="center">新規登録はこちら</Heading>
+            <Heading as="h1" fontSize="lg" textAlign="center">新規登録はこちら</Heading>
             <Divider my={4}/>
             <Stack spacing={6} py={4} px={10}>
                 <MainButton  loading={loading} onClick={onClickGoRegister}>新規登録</MainButton>

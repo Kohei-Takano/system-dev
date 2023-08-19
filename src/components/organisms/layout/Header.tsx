@@ -1,7 +1,7 @@
 import { Box, Flex, Heading, IconButton, Link } from "@chakra-ui/react";
 import {memo,useCallback,VFC}from"react";
 import { useHistory } from "react-router-dom";
-
+import{HamburgerIcon}from "@chakra-ui/icons";
 
 export const Header: VFC = memo(()=>{
     const history= useHistory();
@@ -29,7 +29,7 @@ export const Header: VFC = memo(()=>{
                 <Link onClick={onClickCoDeveloper}>共同開発者を探す</Link>
             </Box>
         </Flex>
-        
+        <IconButton icon={<HamburgerIcon/>}aria-label="メニューボタン" size="sm"variant="unstyled"display={{base:"block",md:"none"}}/>
     </Flex>
     </>
     );

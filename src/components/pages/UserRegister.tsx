@@ -21,10 +21,10 @@ export const UserRegister: VFC = memo(()=>{
 
     return( 
         <>
-        <Heading as="h1" p={6} size="xl" textAlign="center">マイページ情報登録</Heading>
+        <Heading as="h1" p={6} fontSize="xl" textAlign="center">マイページ情報登録</Heading>
         <Flex align="center" justify="center" height="450px">
         <Box bg="purple.100" w="2xl" p={4} borderRadius="md" shadow="md">
-            <Heading as="h1" size="lg" textAlign="center">志望業界</Heading>
+            <Heading as="h1" fontSize="lg" textAlign="center">志望業界</Heading>
             <Divider my={4}/>
             <CheckboxGroup onChange={onChangeIndustry} defaultValue={[]}>
             <Stack direction='column' spacing={6} py={4} px={10}>
@@ -39,7 +39,7 @@ export const UserRegister: VFC = memo(()=>{
     </Flex>
     <Flex align="center" justify="center" height="750px">
     <Box bg="purple.100" w="2xl" p={4} borderRadius="md" shadow="md">
-        <Heading as="h1" size="lg" textAlign="center">志望職種</Heading>
+        <Heading as="h1" fontSize="lg" textAlign="center">志望職種</Heading>
         <Divider my={4}/>
         <CheckboxGroup onChange={onChangeOccupation} defaultValue={[]}>
         <Stack direction='column' spacing={6} py={4} px={10}>
@@ -63,7 +63,7 @@ export const UserRegister: VFC = memo(()=>{
     </Flex>
     <Flex align="center" justify="center" height="930px">
     <Box bg="purple.100" w="2xl" p={4} borderRadius="md" shadow="md">
-        <Heading as="h1" size="lg" textAlign="center">得意なプログラミング言語</Heading>
+        <Heading as="h1" fontSize="lg" textAlign="center">得意なプログラミング言語</Heading>
         <Divider my={4}/>
         <CheckboxGroup onChange={onChangeProgramming} defaultValue={[]}>
         <Stack direction='column' spacing={6} py={4} px={10}>
