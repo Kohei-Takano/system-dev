@@ -2,6 +2,7 @@ import { Box, Flex, Heading, IconButton, Link } from "@chakra-ui/react";
 import {memo,useCallback,VFC}from"react";
 import { useHistory } from "react-router-dom";
 import{HamburgerIcon}from "@chakra-ui/icons";
+import { useLoginUser } from "../../../hooks/useLoginUser";
 
 export const Header: VFC = memo(()=>{
     const history= useHistory();
@@ -9,6 +10,11 @@ export const Header: VFC = memo(()=>{
     const onClickHome = useCallback(() => history.push("/home"),[history]);
     const onClickUserSearch = useCallback(() => history.push("/home/user_search"),[history]);
     const onClickCoDeveloper = useCallback(() => history.push("/home/co_developer"),[history]);
+    const {logoutUser}=useLoginUser()
+    const onClickLogout=()=>{
+        logoutUser();
+        history.push("/");
+    }
     return (
     <>
     <Flex as="nav" 
@@ -25,8 +31,11 @@ export const Header: VFC = memo(()=>{
             <Box pr={4}>
                 <Link onClick={onClickUserSearch}>就活仲間を探す</Link>
             </Box>
-            <Box>
+            <Box pr={4}>
                 <Link onClick={onClickCoDeveloper}>共同開発者を探す</Link>
+            </Box>
+            <Box>
+                <Link onClick={onClickLogout}>ログアウト</Link>
             </Box>
         </Flex>
         <IconButton icon={<HamburgerIcon/>}aria-label="メニューボタン" size="sm"variant="unstyled"display={{base:"block",md:"none"}}/>

@@ -1,6 +1,8 @@
-import { Box, FormControl, FormLabel, Image, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Stack, Text } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, Image, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text } from "@chakra-ui/react";
 import{memo,ReactNode,VFC}from"react";
 import { User } from "../../../types/api/user";
+import { PrimaryButton } from "../../atoms/button/PrimaryButton";
+import { useHistory } from "react-router-dom";
 
 type Props={
     isOpen:boolean;
@@ -10,10 +12,13 @@ type Props={
 
 export const UserDetailModal:VFC<Props>=memo((props)=>{
     const {user,isOpen,onClose}=props;
+    const history=useHistory();
+    const onClickGoUserDetail=()=>history.push("/home/user_search/result/user_detail")
+
     return(
         <Modal isOpen={isOpen} onClose={onClose} autoFocus={false} motionPreset="slideInBottom">
         <ModalOverlay />
-        <ModalContent pb={6}>
+        <ModalContent pb={2}>
             <ModalHeader>ユーザ詳細</ModalHeader>
             <ModalCloseButton/>
             <ModalBody mx={4}>
@@ -36,6 +41,9 @@ export const UserDetailModal:VFC<Props>=memo((props)=>{
                     </FormControl>
                 </Stack>
             </ModalBody>
+            <ModalFooter>
+                <PrimaryButton onClick={onClickGoUserDetail}>ユーザ詳細</PrimaryButton>
+            </ModalFooter>
         </ModalContent>
     </Modal>
     );

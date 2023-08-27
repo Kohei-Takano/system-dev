@@ -4,17 +4,15 @@ import { UserCard } from "../organisms/user/UserCard";
 import { useAllUsers } from "../../hooks/useAllUsers";
 import { UserDetailModal } from "../organisms/user/UserDetailModal";
 import { useSelectUser } from "../../hooks/useSelectUser";
+import { useHistory } from "react-router-dom";
 export const FriendsList: VFC = memo(()=>{
     const { isOpen,onOpen,onClose}=useDisclosure();
     const {getUsers,users,loading}=useAllUsers();
-    const {onSelectUser,selectedUser}=useSelectUser();
 
     useEffect(()=>getUsers(),[]);
 
-    const onClickUser = useCallback((id:number) => {
-        onSelectUser({id,users,onOpen});
-        },[users,onSelectUser,onOpen]);
-
+    const history=useHistory();
+    const onClickUserCard=()=>history.push("/home/user_search/result/user_detail")
     return(
     <>
     {loading ? (
@@ -30,13 +28,12 @@ export const FriendsList: VFC = memo(()=>{
                     imageUrl="https://source.unsplash.com/random" 
                     userName={user.username} 
                     fullName={user.name}
-                    onClick={onClickUser}
+                    onClick={onClickUserCard}
                 />
             </WrapItem>
         ))}
     </Wrap>
     )}
-    <UserDetailModal user={selectedUser}isOpen={isOpen} onClose={onClose}/>
     </>
     )
 });

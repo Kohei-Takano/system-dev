@@ -21,8 +21,8 @@ export const UserRegister: VFC = memo(()=>{
 
     return( 
         <>
-        <Heading as="h1" p={6} fontSize="xl" textAlign="center">マイページ情報登録</Heading>
-        <Flex align="center" justify="center" height="450px">
+    <Heading as="h1" p={6} fontSize="xl" textAlign="center">マイページ情報登録</Heading>
+    <Flex align="center" justify="center" height="450px">
         <Box bg="purple.100" w="2xl" p={4} borderRadius="md" shadow="md">
             <Heading as="h1" fontSize="lg" textAlign="center">志望業界</Heading>
             <Divider my={4}/>
@@ -86,10 +86,13 @@ export const UserRegister: VFC = memo(()=>{
         </CheckboxGroup>
     </Box>  
     </Flex>
-    <Stack spacing={6} py={4} px={10}>
-        <MainButton  loading={loading} onClick={onClickGoHome}>新規登録</MainButton>
-    </Stack>
-
+    <Flex align="center" justify="center" height="5vh">
+        <Box w="3xl">
+            <Stack spacing={6} py={4} px={10}>
+                <MainButton  loading={loading} onClick={onClickGoHome}>登録</MainButton>
+            </Stack>
+        </Box>
+    </Flex>
 </>
     );
 });
