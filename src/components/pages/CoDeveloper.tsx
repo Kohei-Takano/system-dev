@@ -1,5 +1,5 @@
 import { Heading, Stack, Wrap, WrapItem } from "@chakra-ui/react";
-import {memo,VFC}from"react";
+import {memo,useEffect,VFC}from"react";
 import { BigButton } from "../atoms/button/BigButton";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
@@ -8,6 +8,14 @@ export const CoDeveloper: VFC = memo(()=>{
     const history=useHistory();
     const onClickNewRecruit=()=>history.push("/home/co_developer/new_recruit")
     const onClickRecruitSearch=()=>history.push("/home/co_developer/search")
+    useEffect(() => {
+        // ローカルストレージから情報を取得
+        const storedInfo = localStorage.getItem("loggedInUser");
+    
+        if (!storedInfo) {
+          history.push("/"); // ログインページへ遷移
+        }
+      }, [history]);
     return (
     <>
     <Heading as="h1" p={6} size="3xl" textAlign="center">共同開発者を探す</Heading>

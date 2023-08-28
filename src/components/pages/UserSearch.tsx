@@ -1,5 +1,5 @@
 import { Box, Checkbox, CheckboxGroup, Divider, Flex, Heading, Input, Stack} from "@chakra-ui/react";
-import {ChangeEvent, memo,useState,VFC}from"react";
+import {ChangeEvent, memo,useEffect,useState,VFC}from"react";
 
 import { PrimaryButton } from "../atoms/button/PrimaryButton";
 import { useAuth } from "../../hooks/useAuth";
@@ -20,6 +20,14 @@ export const UserSearch: VFC = memo(()=>{
     
     const history=useHistory();
     const onClickUserSearch=()=>history.push("/home/user_search/result")
+    useEffect(() => {
+        // ローカルストレージから情報を取得
+        const storedInfo = localStorage.getItem("loggedInUser");
+    
+        if (!storedInfo) {
+          history.push("/"); // ログインページへ遷移
+        }
+      }, [history]);
 
     return( 
         <>

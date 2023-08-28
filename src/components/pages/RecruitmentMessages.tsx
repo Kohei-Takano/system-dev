@@ -1,4 +1,4 @@
-import {ChangeEvent, memo,useState,VFC}from"react";
+import {ChangeEvent, memo,useEffect,useState,VFC}from"react";
 import { MainButton } from "../atoms/button/MainButton";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
@@ -12,6 +12,14 @@ export const RecruitmentMessages: VFC = memo(()=>{
     const onClickTitle=()=>history.push("/home/co_developer/recruitmentid")
     const onClickList=()=>history.push("/home/co_developer/recruitmentid/application_list")
     const onClickSend=()=>{}
+    useEffect(() => {
+        // ローカルストレージから情報を取得
+        const storedInfo = localStorage.getItem("loggedInUser");
+    
+        if (!storedInfo) {
+          history.push("/"); // ログインページへ遷移
+        }
+      }, [history]);
     return (
         <>
         <Flex align="left" justify="left">

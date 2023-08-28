@@ -1,5 +1,5 @@
 import { Box, Flex, Heading, Input, Stack, Textarea } from "@chakra-ui/react";
-import {ChangeEvent, memo,useState,VFC}from"react";
+import {ChangeEvent, memo,useEffect,useState,VFC}from"react";
 import { MainButton } from "../atoms/button/MainButton";
 import { useAuth } from "../../hooks/useAuth";
 import { useHistory } from "react-router-dom";
@@ -9,6 +9,14 @@ export const ApplicationMessage: VFC = memo(()=>{
     const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>)=>setText(e.target.value);
     const history=useHistory();
     const onClickContent=()=>history.push("/home/co_developer/search/result/detail/application/content")
+    useEffect(() => {
+        // ローカルストレージから情報を取得
+        const storedInfo = localStorage.getItem("loggedInUser");
+    
+        if (!storedInfo) {
+          history.push("/"); // ログインページへ遷移
+        }
+      }, [history]);
     return (
         <>
         <Heading as="h1" p={6} size="3xl" textAlign="center">応募メッセージ編集</Heading>

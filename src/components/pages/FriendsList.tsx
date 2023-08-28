@@ -13,6 +13,14 @@ export const FriendsList: VFC = memo(()=>{
 
     const history=useHistory();
     const onClickUserCard=()=>history.push("/home/user_search/result/user_detail")
+    useEffect(() => {
+        // ローカルストレージから情報を取得
+        const storedInfo = localStorage.getItem("loggedInUser");
+    
+        if (!storedInfo) {
+          history.push("/"); // ログインページへ遷移
+        }
+      }, [history]);
     return(
     <>
     {loading ? (

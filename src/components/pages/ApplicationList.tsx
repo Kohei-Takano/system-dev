@@ -22,6 +22,15 @@ export const ApplicationList: VFC = memo(()=>{
 
     const onClickTitle=()=>history.push("/home/co_developer/recruitmentid")
     const onClickList=()=>history.push("/home/co_developer/recruitmentid/application_list")
+    
+    useEffect(() => {
+        // ローカルストレージから情報を取得
+        const storedInfo = localStorage.getItem("loggedInUser");
+    
+        if (!storedInfo) {
+          history.push("/"); // ログインページへ遷移
+        }
+      }, [history]);
     return (
         <>
     <Flex align="left" justify="left" >

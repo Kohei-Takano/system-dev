@@ -1,5 +1,5 @@
 import { Box, Checkbox, CheckboxGroup, Divider, Flex, Heading, Input, Stack} from "@chakra-ui/react";
-import {ChangeEvent, memo,useState,VFC}from"react";
+import {ChangeEvent, memo,useEffect,useState,VFC}from"react";
 
 import { PrimaryButton } from "../atoms/button/PrimaryButton";
 import { useAuth } from "../../hooks/useAuth";
@@ -19,6 +19,14 @@ export const RecruitmentsSearch: VFC = memo(()=>{
     
     const history=useHistory();
     const onClickRecruitmentsSearchResult=()=>history.push("/home/co_developer/search/result")
+    useEffect(() => {
+        // ローカルストレージから情報を取得
+        const storedInfo = localStorage.getItem("loggedInUser");
+    
+        if (!storedInfo) {
+          history.push("/"); // ログインページへ遷移
+        }
+      }, [history]);
     return (
         <>
         <Heading as="h1" p={6} size="3xl" textAlign="center">共同開発者を探す</Heading>

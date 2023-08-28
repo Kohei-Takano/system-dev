@@ -9,9 +9,11 @@ import { MainButton } from "../atoms/button/MainButton";
 export const Login: VFC = memo(()=>{
     const{login,loading}=useAuth();
     const [userId,setUserId] =useState('');
+    const [password,setPassword] =useState('');
 
     const onChangeUserId = (e: ChangeEvent<HTMLInputElement>)=>setUserId(e.target.value);
-    const onClickLogin=()=>login(userId);
+    const onChangePassword=(e: ChangeEvent<HTMLInputElement>)=>setPassword(e.target.value);
+    const onClickLogin=()=>login(userId,password);
     
     const history=useHistory();
     const onClickGoRegister=()=>history.push("/register")
@@ -24,7 +26,7 @@ export const Login: VFC = memo(()=>{
             <Divider my={4}/>
             <Stack spacing={6} py={4} px={10}>
                 <Input placeholder="ユーザID" value={userId} onChange={onChangeUserId}/>
-                <Input placeholder="パスワード"/>
+                <Input placeholder="パスワード" value={password}onChange={onChangePassword}/>
                 <PrimaryButton disabled={userId ===""} loading={loading} onClick={onClickLogin}>ログイン</PrimaryButton>
             </Stack>
         </Box>        

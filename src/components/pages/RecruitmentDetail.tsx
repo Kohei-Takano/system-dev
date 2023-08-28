@@ -10,6 +10,14 @@ export const RecruitmentDetail: VFC = memo(()=>{
     const history=useHistory();
     const onClickUserCard=()=>history.push("/home/user_search/result/user_detail")
     const onClickApplication=()=>history.push("/home/co_developer/search/result/detail/application")
+    useEffect(() => {
+        // ローカルストレージから情報を取得
+        const storedInfo = localStorage.getItem("loggedInUser");
+    
+        if (!storedInfo) {
+          history.push("/"); // ログインページへ遷移
+        }
+      }, [history]);
     return (
         <>
         <Heading as="h1" p={6} size="3xl" textAlign="center">募集詳細</Heading>

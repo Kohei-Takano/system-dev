@@ -1,5 +1,5 @@
 import { Box, Checkbox, CheckboxGroup, Divider, Flex, Heading, Stack, Text, Wrap, WrapItem} from "@chakra-ui/react";
-import {ChangeEvent, memo,useState,VFC}from"react";
+import {ChangeEvent, memo,useEffect,useState,VFC}from"react";
 
 import { PrimaryButton } from "../atoms/button/PrimaryButton";
 import { useAuth } from "../../hooks/useAuth";
@@ -24,6 +24,14 @@ export const Home: VFC = memo(()=>{
     const onClickGoCoDeveloper=()=>history.push("/home/co_developer")
     const onClickGoFriendList=()=>history.push("/home/friend_list")
     const onClickGoUserRegister=()=>history.push("/home/user_info")
+    useEffect(() => {
+        // ローカルストレージから情報を取得
+        const storedInfo = localStorage.getItem("loggedInUser");
+    
+        if (!storedInfo) {
+          history.push("/"); // ログインページへ遷移
+        }
+      }, [history]);
     return( 
         <>
         <Heading as="h1" p={6} size="3xl" textAlign="center">ホーム</Heading>
@@ -46,8 +54,8 @@ export const Home: VFC = memo(()=>{
         </Wrap>
         <Heading as="h1" p={6} size="xl" textAlign="center">登録情報</Heading>
         <Flex align="center" justify="center" height="5vh">
-            <Box key={loginUser?.id}>
-                <Heading as="h2" p={6} size="md" textAlign="center">ユーザ名：{loginUser?.username}</Heading>
+            <Box key={loginUser?.uid}>
+                <Heading as="h2" p={6} size="md" textAlign="center">ユーザ名：{loginUser?.displayName}</Heading>
             </Box>
         </Flex>
         <Flex align="center" justify="center" height="30vh">

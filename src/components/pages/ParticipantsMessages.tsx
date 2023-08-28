@@ -1,4 +1,14 @@
-import {memo,VFC}from"react";
+import {memo,useEffect,VFC}from"react";
+import { useHistory } from "react-router-dom";
 export const ParticipantsMessages: VFC = memo(()=>{
+    const history=useHistory();
+    useEffect(() => {
+        // ローカルストレージから情報を取得
+        const storedInfo = localStorage.getItem("loggedInUser");
+    
+        if (!storedInfo) {
+          history.push("/"); // ログインページへ遷移
+        }
+      }, [history]);
     return <p>参加者メッセージページです</p>;
 });

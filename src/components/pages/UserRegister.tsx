@@ -1,5 +1,5 @@
-import { Box, Checkbox, CheckboxGroup, Divider, Flex, Heading, Stack} from "@chakra-ui/react";
-import {ChangeEvent, memo,useState,VFC}from"react";
+import { Box, Checkbox, CheckboxGroup, Divider, Flex, Heading, Input, Stack} from "@chakra-ui/react";
+import {ChangeEvent, memo,useEffect,useState,VFC}from"react";
 
 import { PrimaryButton } from "../atoms/button/PrimaryButton";
 import { useAuth } from "../../hooks/useAuth";
@@ -8,23 +8,32 @@ import { MainButton } from "../atoms/button/MainButton";
 
 export const UserRegister: VFC = memo(()=>{
     const{login,loading}=useAuth();
+    const [username,setUsername]=useState('');
     const [industry,setIndustry] =useState<string[]>([]);
     const [occupation,setOccupation]=useState<string[]>([]);
     const [programming,setProgramming]=useState<string[]>([]);
 
+    const onChangeUsername = (e: ChangeEvent<HTMLInputElement>)=>setUsername(e.target.value);
     const onChangeIndustry=(newSelectedIndustries: string[])=>setIndustry(newSelectedIndustries);
     const onChangeOccupation=(newSelectedOccupation:string[])=>setOccupation(newSelectedOccupation);
     const onChangeProgramming=(newSelectedProgramming:string[])=>setProgramming(newSelectedProgramming);
     
     const history=useHistory();
     const onClickGoHome=()=>history.push("/home")
-
+    
     return( 
         <>
-    <Heading as="h1" p={6} fontSize="xl" textAlign="center">マイページ情報登録</Heading>
-    <Flex align="center" justify="center" height="450px">
+    <Heading as="h1" p={6} size="3xl" textAlign="center">マイページ情報登録</Heading>
+    <Flex align="center" justify="center" height="200px">
         <Box bg="purple.100" w="2xl" p={4} borderRadius="md" shadow="md">
-            <Heading as="h1" fontSize="lg" textAlign="center">志望業界</Heading>
+            <Heading as="h1" size="lg" textAlign="center">ユーザ名</Heading>
+            <Divider my={4}/>
+            <Input placeholder="ユーザ名" value={username} onChange={onChangeUsername}/>
+        </Box>
+    </Flex>
+    <Flex align="center" justify="center" height="350px">
+        <Box bg="purple.100" w="2xl" p={4} borderRadius="md" shadow="md">
+            <Heading as="h1" size="lg" textAlign="center">志望業界</Heading>
             <Divider my={4}/>
             <CheckboxGroup onChange={onChangeIndustry} defaultValue={[]}>
             <Stack direction='column' spacing={6} py={4} px={10}>
@@ -37,9 +46,9 @@ export const UserRegister: VFC = memo(()=>{
             </CheckboxGroup>
         </Box>  
     </Flex>
-    <Flex align="center" justify="center" height="750px">
+    <Flex align="center" justify="center" height="800px">
     <Box bg="purple.100" w="2xl" p={4} borderRadius="md" shadow="md">
-        <Heading as="h1" fontSize="lg" textAlign="center">志望職種</Heading>
+        <Heading as="h1" size="lg" textAlign="center">志望職種</Heading>
         <Divider my={4}/>
         <CheckboxGroup onChange={onChangeOccupation} defaultValue={[]}>
         <Stack direction='column' spacing={6} py={4} px={10}>
@@ -61,7 +70,7 @@ export const UserRegister: VFC = memo(()=>{
 
     </Box>  
     </Flex>
-    <Flex align="center" justify="center" height="930px">
+    <Flex align="center" justify="center" height="830px">
     <Box bg="purple.100" w="2xl" p={4} borderRadius="md" shadow="md">
         <Heading as="h1" fontSize="lg" textAlign="center">得意なプログラミング言語</Heading>
         <Divider my={4}/>

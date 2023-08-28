@@ -3,6 +3,7 @@ import {memo,useCallback,VFC}from"react";
 import { useHistory } from "react-router-dom";
 import{HamburgerIcon}from "@chakra-ui/icons";
 import { useLoginUser } from "../../../hooks/useLoginUser";
+import { auth } from "../../../firebase";
 
 export const Header: VFC = memo(()=>{
     const history= useHistory();
@@ -12,6 +13,7 @@ export const Header: VFC = memo(()=>{
     const onClickCoDeveloper = useCallback(() => history.push("/home/co_developer"),[history]);
     const {logoutUser}=useLoginUser()
     const onClickLogout=()=>{
+        auth.signOut();
         logoutUser();
         history.push("/");
     }

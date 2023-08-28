@@ -20,6 +20,14 @@ export const RecruitmentsSearchResult: VFC = memo(()=>{
         const history=useHistory();
         const onClickUserSearch=()=>history.push("/home/co_developer/search")
         const onClickRecruitmentDetail=()=>history.push("/home/co_developer/search/result/detail")
+        useEffect(() => {
+            // ローカルストレージから情報を取得
+            const storedInfo = localStorage.getItem("loggedInUser");
+        
+            if (!storedInfo) {
+              history.push("/"); // ログインページへ遷移
+            }
+          }, [history]);
     return(
     <>
     <Heading as="h1" p={6} fontSize="3xl" textAlign="center">検索結果</Heading>
