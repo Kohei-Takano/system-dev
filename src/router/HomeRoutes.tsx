@@ -34,13 +34,13 @@ export const homeRoutes = [
         children:<UserSearchResult/>
     },
     {
-        path:"/user_search/result/user_detail",
+        path:"/user_search/result/:userId",
         exact:true,
         children:<UserDetail/>
     },
     {
-        path:"/user_search/result/user_detail/userid",
-        exact:true,
+        path:"/user_search/result/:userId/messages",
+        exact:false,
         children:<UserMessages/>
     },
     {
@@ -49,8 +49,8 @@ export const homeRoutes = [
         children:<CoDeveloper/>
     },
     {
-        path:"/co_developer/recruitid",
-        exact:true,
+        path:"/co_developer/participant/:recruitId",
+        exact:false,
         children:<ParticipantsMessages/>
     },
     {
@@ -64,22 +64,22 @@ export const homeRoutes = [
         children:<RecruitmentsSearchResult/>
     },
     {
-        path:"/co_developer/search/result/detail",
+        path:"/co_developer/search/result/:recruitId",
         exact:true,
         children:<RecruitmentDetail/>
     },
     {
-        path:"/co_developer/search/result/detail/application",
+        path:"/co_developer/search/result/:recruitId/application",
         exact:true,
         children:<ApplicationMessage/>
     },
     {
-        path:"/co_developer/search/result/detail/application/content",
-        exact:true,
+        path:"/co_developer/search/result/:recruitId/application/content",
+        exact:false,
         children:<ContentRecruitment/>
     },
     {
-        path:"/co_developer/recruitmentid",
+        path:"/co_developer/:recruitId",
         exact:true,
         children:<RecruitmentMessages/>
     },
@@ -89,8 +89,8 @@ export const homeRoutes = [
         children:<NewRecruitment/>
     },
     {
-        path:"/co_developer/recruitmentid/application_list",
-        exact:true,
+        path:"/co_developer/:recruitId/application_list",
+        exact:false,
         children:<ApplicationList/>
     },
     {

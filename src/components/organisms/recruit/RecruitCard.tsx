@@ -2,28 +2,26 @@ import { Box, Image, Stack, Text } from "@chakra-ui/react";
 import{memo,ReactNode,VFC}from"react";
 
 type Props={
-    userid:string;
-   userName:string;
-   industry:Array<string>;
+    recruitid:string;
+   recruitTitle:string;
    onClick:(id:string)=>void;
 };
 
-export const Application:VFC<Props>=memo((props)=>{
-    const {userid,userName,industry,onClick}=props;
+export const RecruitCard:VFC<Props>=memo((props)=>{
+    const {recruitid,recruitTitle,onClick}=props;
     return(
         <Box
-        w="1200px" 
-        h="200px" 
+        w="800px" 
+        h="60px" 
         bg="white" 
         borderRadius="10px" 
         shadow="md" 
         p={4}
         _hover={{cursor:"pointer",opacity:0.8}}
-        onClick={()=>onClick(userid)}
+        onClick={()=>onClick(recruitid)}
         >
           <Stack textAlign="center">
-              <Text fontSize="lg" fontWeight="bold">{industry}</Text>
-              <Text fontSize="sm" color="gray">{userName}</Text>
+              <Text fontSize="lg" fontWeight="bold">{recruitTitle}</Text>
           </Stack>
       </Box>
     );

@@ -5,22 +5,26 @@ import { PrimaryButton } from "../atoms/button/PrimaryButton";
 import { useAuth } from "../../hooks/useAuth";
 import { useHistory } from "react-router-dom";
 import { MainButton } from "../atoms/button/MainButton";
+import { useNewRecruit } from "../../hooks/useNewRecruit";
+
+
 export const NewRecruitment: VFC = memo(()=>{
-    const{login,loading}=useAuth();
-    const [userName,setUserName] =useState('');
-    const [industry,setIndustry] =useState<string[]>([]);
-    const [occupation,setOccupation]=useState<string[]>([]);
-    const [programming,setProgramming]=useState<string[]>([]);
+    const {newRecruit,loading}=useNewRecruit();
+    const [recruitTitle,setRecruitTitle] =useState('');
+    const [thing,setThing] =useState<string[]>([]);
+    const [time,setTime]=useState<string[]>([]);
+    const [people,setPeople]=useState<string[]>([]);
     const [text,setText] =useState('');
     
     const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>)=>setText(e.target.value);
-    const onChangeUserName = (e: ChangeEvent<HTMLInputElement>)=>setUserName(e.target.value);
-    const onChangeIndustry=(newSelectedIndustries: string[])=>setIndustry(newSelectedIndustries);
-    const onChangeOccupation=(newSelectedOccupation:string[])=>setOccupation(newSelectedOccupation);
-    const onChangeProgramming=(newSelectedProgramming:string[])=>setProgramming(newSelectedProgramming);
+    const onChangeRecruitTitle = (e: ChangeEvent<HTMLInputElement>)=>setRecruitTitle(e.target.value);
+    const onChangeThing=(newSelectedIndustries: string[])=>setThing(newSelectedIndustries);
+    const onChangeTime=(newSelectedOccupation:string[])=>setTime(newSelectedOccupation);
+    const onChangePeople=(newSelectedProgramming:string[])=>setPeople(newSelectedProgramming);
     
     const history=useHistory();
-    const onClickRecruit=()=>history.push("/home/co_developer/recruitmentid")
+    const onClickRecruit=()=>newRecruit(recruitTitle,text,thing,time,people)
+    //history.push("/home/co_developer/recruitmentid")
     useEffect(() => {
         // ローカルストレージから情報を取得
         const storedInfo = localStorage.getItem("loggedInUser");
@@ -37,18 +41,19 @@ export const NewRecruitment: VFC = memo(()=>{
                 <Heading as="h1" p={12} size="xl" textAlign="center">募集要件</Heading>
             <Heading as="h1" size="lg" textAlign="center">開発物の内容</Heading>
             <Divider my={4}/>
-            <CheckboxGroup onChange={onChangeIndustry} defaultValue={[]}>
+            <CheckboxGroup onChange={onChangeThing} defaultValue={[]}>
             <Stack direction='column' spacing={6} py={4} px={10}>
                 <Checkbox value='1'>Webサービス</Checkbox>
                 <Checkbox value='2'>ゲーム</Checkbox>
                 <Checkbox value='3'>アート</Checkbox>
-                <Checkbox value='4'>その他</Checkbox>
+                <Checkbox value='4'>サウンド</Checkbox>
+                <Checkbox value='5'>その他</Checkbox>
             </Stack>
             </CheckboxGroup>
         
         <Heading as="h1" size="lg" textAlign="center">予想開発期間</Heading>
         <Divider my={4}/>
-        <CheckboxGroup onChange={onChangeOccupation} defaultValue={[]}>
+        <CheckboxGroup onChange={onChangeTime} defaultValue={[]}>
         <Stack direction='column' spacing={6} py={4} px={10}>
             <Checkbox value='1'>3カ月以下</Checkbox>
             <Checkbox value='2'>4カ月</Checkbox>
@@ -67,7 +72,7 @@ export const NewRecruitment: VFC = memo(()=>{
     
         <Heading as="h1" size="lg" textAlign="center">人数</Heading>
         <Divider my={4}/>
-        <CheckboxGroup onChange={onChangeProgramming} defaultValue={[]}>
+        <CheckboxGroup onChange={onChangePeople} defaultValue={[]}>
         <Stack direction='column' spacing={6} py={4} px={10}>
             <Checkbox value='1'>2～4人</Checkbox>
             <Checkbox value='2'>5～7人</Checkbox>
@@ -80,7 +85,7 @@ export const NewRecruitment: VFC = memo(()=>{
         <Heading as="h1" size="lg" textAlign="center">募集タイトル</Heading>
         <Divider my={4}/>
         <Stack spacing={6} py={4} px={10}>
-            <Input placeholder="募集タイトル名" value={userName} onChange={onChangeUserName}/>
+            <Input placeholder="募集タイトル名" value={recruitTitle} onChange={onChangeRecruitTitle}/>
         </Stack>
         <Heading as="h1" size="lg" textAlign="center">募集の詳細情報を記入</Heading>
         <Divider my={4}/>
@@ -88,7 +93,7 @@ export const NewRecruitment: VFC = memo(()=>{
             <Textarea placeholder="募集詳細" size="lg" value={text} onChange={onChangeText}/>
         </Stack>
         <Stack spacing={6} py={4} px={10}>
-            <MainButton  loading={loading} onClick={onClickRecruit}>募集</MainButton>
+            <PrimaryButton disabled={ recruitTitle ==="" || thing.length===0 || time.length===0||people.length===0||text===""} loading={loading} onClick={onClickRecruit}>募集</PrimaryButton>
         </Stack>
     </Box>  
     </Flex>

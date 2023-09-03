@@ -5,9 +5,10 @@ import { PrimaryButton } from "../atoms/button/PrimaryButton";
 import { useAuth } from "../../hooks/useAuth";
 import { useHistory } from "react-router-dom";
 import { MainButton } from "../atoms/button/MainButton";
+import { useUserRegister } from "../../hooks/useUserRegister";
 
 export const UserRegister: VFC = memo(()=>{
-    const{login,loading}=useAuth();
+    const {userRegister,loading}=useUserRegister();
     const [username,setUsername]=useState('');
     const [industry,setIndustry] =useState<string[]>([]);
     const [occupation,setOccupation]=useState<string[]>([]);
@@ -19,7 +20,7 @@ export const UserRegister: VFC = memo(()=>{
     const onChangeProgramming=(newSelectedProgramming:string[])=>setProgramming(newSelectedProgramming);
     
     const history=useHistory();
-    const onClickGoHome=()=>history.push("/home")
+    const onClickGoHome=()=>userRegister(username,industry,occupation,programming)
     
     return( 
         <>
@@ -98,7 +99,7 @@ export const UserRegister: VFC = memo(()=>{
     <Flex align="center" justify="center" height="5vh">
         <Box w="3xl">
             <Stack spacing={6} py={4} px={10}>
-                <MainButton  loading={loading} onClick={onClickGoHome}>登録</MainButton>
+            <PrimaryButton disabled={ industry.length ===0 && occupation.length===0 && programming.length===0} loading={loading} onClick={onClickGoHome}>登録</PrimaryButton>
             </Stack>
         </Box>
     </Flex>

@@ -2,13 +2,16 @@ import { Box, Flex, Heading, Input, Stack, Textarea } from "@chakra-ui/react";
 import {ChangeEvent, memo,useEffect,useState,VFC}from"react";
 import { MainButton } from "../atoms/button/MainButton";
 import { useAuth } from "../../hooks/useAuth";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
+import { useApply } from "../../hooks/useApply";
 export const ApplicationMessage: VFC = memo(()=>{
-    const{login,loading}=useAuth();
     const [text,setText] =useState('');
+    const {recruitId}=useParams<{ recruitId: string }>();
+    const {apply,loading}=useApply();
     const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>)=>setText(e.target.value);
     const history=useHistory();
-    const onClickContent=()=>history.push("/home/co_developer/search/result/detail/application/content")
+    const onClickContent=()=>apply(text,recruitId)
+    //history.push("/home/co_developer/search/result/detail/application/content")
     useEffect(() => {
         // ローカルストレージから情報を取得
         const storedInfo = localStorage.getItem("loggedInUser");

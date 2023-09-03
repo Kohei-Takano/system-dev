@@ -4,13 +4,15 @@ import { useHistory } from "react-router-dom";
 import{HamburgerIcon}from "@chakra-ui/icons";
 import { useLoginUser } from "../../../hooks/useLoginUser";
 import { auth } from "../../../firebase";
+import { useRecruitTeam } from "../../../hooks/useRecruitTeam";
 
 export const Header: VFC = memo(()=>{
     const history= useHistory();
 
+    const {recruitTeam}=useRecruitTeam();
     const onClickHome = useCallback(() => history.push("/home"),[history]);
     const onClickUserSearch = useCallback(() => history.push("/home/user_search"),[history]);
-    const onClickCoDeveloper = useCallback(() => history.push("/home/co_developer"),[history]);
+    const onClickCoDeveloper = recruitTeam//useCallback(() => history.push("/home/co_developer"),[history]);
     const {logoutUser}=useLoginUser()
     const onClickLogout=()=>{
         auth.signOut();

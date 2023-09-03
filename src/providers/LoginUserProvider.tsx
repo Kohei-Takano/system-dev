@@ -14,7 +14,7 @@ export const LoginUserProvider=(props:{children:ReactNode})=>{
     const [loginUser,setLoginUser]=useState<FirebaseAuthUser|null>(null);
     const logoutUser=()=>{
         localStorage.removeItem("loggedInUser");
-        window.location.reload();
+       
         setLoginUser(null);
     }
     return(

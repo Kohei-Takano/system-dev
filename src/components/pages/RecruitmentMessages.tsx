@@ -1,16 +1,18 @@
 import {ChangeEvent, memo,useEffect,useState,VFC}from"react";
 import { MainButton } from "../atoms/button/MainButton";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { Box, Flex, Input, Stack, Textarea, Wrap, WrapItem } from "@chakra-ui/react";
+import { useApplications } from "../../hooks/useApplications";
 export const RecruitmentMessages: VFC = memo(()=>{
-    const{login,loading}=useAuth();
-    const [text,setText] =useState('');
     
+    const [text,setText] =useState('');
+    const{recruitId}=useParams<{ recruitId: string }>();
+    const {applicationList,loading}=useApplications();
     const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>)=>setText(e.target.value);
     const history=useHistory();
     const onClickTitle=()=>history.push("/home/co_developer/recruitmentid")
-    const onClickList=()=>history.push("/home/co_developer/recruitmentid/application_list")
+    const onClickList=()=>applicationList(recruitId)//history.push(`/home/co_developer/${recruitId}/application_list`)
     const onClickSend=()=>{}
     useEffect(() => {
         // ローカルストレージから情報を取得

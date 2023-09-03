@@ -6,20 +6,29 @@ import { UserDetailModal } from "../organisms/user/UserDetailModal";
 import { useSelectUser } from "../../hooks/useSelectUser";
 import { MainButton } from "../atoms/button/MainButton";
 import { useHistory } from "react-router-dom";
+import { useRecruits } from "../../hooks/useRecruits";
+import { RecruitCard } from "../organisms/recruit/RecruitCard";
+import { useOtherUsers } from "../../hooks/useOtherUsers";
+import {  NewRecruits } from "../../types/api/newRecruits";
+import { useRecruitDetailSearch } from "../../hooks/useRecruitDetailSearch";
 export const RecruitmentsSearchResult: VFC = memo(()=>{
     const { isOpen,onOpen,onClose}=useDisclosure();
-    const {getUsers,users,loading}=useAllUsers();
+    const {loading}=useAllUsers();
     const {onSelectUser,selectedUser}=useSelectUser();
+    const {recruits}=useRecruits();
+    const {users}=useOtherUsers();
+    const {recruitDetailSearch}=useRecruitDetailSearch();
+    
+    //useEffect(()=>getUsers(),[]);
 
-    useEffect(()=>getUsers(),[]);
 
-    const onClickUser = useCallback((id:number) => {
-        onSelectUser({id,users,onOpen});
-        },[users,onSelectUser,onOpen]);
+    //const onClickUser = useCallback((id:string) => {
+        //onSelectUser({id,users,onOpen});
+        //},[users,onSelectUser,onOpen]);
 
         const history=useHistory();
-        const onClickUserSearch=()=>history.push("/home/co_developer/search")
-        const onClickRecruitmentDetail=()=>history.push("/home/co_developer/search/result/detail")
+        const onClickRecruitSearch=()=>history.push("/home/co_developer/search")
+        //const onClickRecruitmentDetail=()=>history.push("/home/co_developer/search/result/detail")
         useEffect(() => {
             // ローカルストレージから情報を取得
             const storedInfo = localStorage.getItem("loggedInUser");
@@ -28,6 +37,7 @@ export const RecruitmentsSearchResult: VFC = memo(()=>{
               history.push("/"); // ログインページへ遷移
             }
           }, [history]);
+          const onClickRecruitmentDetail =(recruitId:string)=> recruitDetailSearch(recruitId);//history.push(`/home/co_developer/search/result/${recruitId}`)
     return(
     <>
     <Heading as="h1" p={6} fontSize="3xl" textAlign="center">検索結果</Heading>
@@ -37,13 +47,11 @@ export const RecruitmentsSearchResult: VFC = memo(()=>{
         </Center>
         ):(
     <Wrap p={{base:4,md:10}} justify="center">
-        {users.map((user)=>(
-            <WrapItem key={user.id} >
-                <UserCard 
-                    id={user.id}
-                    imageUrl="https://source.unsplash.com/random" 
-                    userName={user.username} 
-                    fullName={user.name}
+        {recruits.map((recruit)=>(
+            <WrapItem key={recruit.recruitid} >
+                <RecruitCard 
+                    recruitid={recruit.recruitid} 
+                    recruitTitle={recruit.recruitTitle}
                     onClick={onClickRecruitmentDetail}
                 />
             </WrapItem>
@@ -53,7 +61,7 @@ export const RecruitmentsSearchResult: VFC = memo(()=>{
     <Flex align="center" justify="center" height="30vh">
         <Box w="sm">
             <Stack spacing={6} py={4} px={10}>
-                <MainButton loading={loading} onClick={onClickUserSearch}>他の条件で検索</MainButton>
+                <MainButton loading={loading} onClick={onClickRecruitSearch}>他の条件で検索</MainButton>
             </Stack>
         </Box>
     </Flex>

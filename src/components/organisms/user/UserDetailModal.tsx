@@ -28,16 +28,8 @@ export const UserDetailModal:VFC<Props>=memo((props)=>{
                         <Input value={user?.username} isReadOnly/>
                     </FormControl>
                     <FormControl>
-                        <FormLabel>フルネーム</FormLabel>
-                        <Input value={user?.name} isReadOnly/>
-                    </FormControl>
-                    <FormControl>
-                        <FormLabel>学年</FormLabel>
-                        <Input value={user?.email} isReadOnly/>
-                    </FormControl>
-                    <FormControl>
-                        <FormLabel>価値観</FormLabel>
-                        <Input value={user?.phone} isReadOnly/>
+                        <FormLabel>志望業界</FormLabel>
+                        <Input value={user?.industry} isReadOnly/>
                     </FormControl>
                 </Stack>
             </ModalBody>

@@ -4,18 +4,31 @@ import { User } from "../../../types/api/user";
 import { PrimaryButton } from "../../atoms/button/PrimaryButton";
 import { useHistory } from "react-router-dom";
 import { BigButton } from "../../atoms/button/BigButton";
+import { List } from "../../../types/api/list";
+import { useDeleteApplication } from "../../../hooks/useDeleteApplication";
+import { useApprove } from "../../../hooks/useApprove";
+
 
 type Props={
     isOpen:boolean;
     onClose:()=>void;
-    user:User|null;
+    list:List|null;
 };
 
 export const ApplicationModal:VFC<Props>=memo((props)=>{
-    const {user,isOpen,onClose}=props;
+    const {list,isOpen,onClose}=props;
     const history=useHistory();
-    const onClickOk=()=>onClose();
-    const onClickNo=()=>onClose();
+    const {approve}=useApprove();
+    const {deleteApplication}=useDeleteApplication()
+    const onClickOk=()=>{
+        approve(list?.applicationid,list?.recruitid)
+        onClose();
+    
+    }
+    const onClickNo=()=>{
+        deleteApplication(list?.applicationid)
+        onClose();
+    }
 
     return(
         <Modal isOpen={isOpen} size="xs"onClose={onClose} autoFocus={false} motionPreset="slideInBottom">

@@ -30,12 +30,12 @@ export const FriendsList: VFC = memo(()=>{
         ):(
     <Wrap p={{base:4,md:10}} justify="center">
         {users.map((user)=>(
-            <WrapItem key={user.id} >
+            <WrapItem key={user.userid} >
                 <UserCard 
-                    id={user.id}
+                    userid={user.userid}
                     imageUrl="https://source.unsplash.com/random" 
                     userName={user.username} 
-                    fullName={user.name}
+                    industry={user.industry}
                     onClick={onClickUserCard}
                 />
             </WrapItem>

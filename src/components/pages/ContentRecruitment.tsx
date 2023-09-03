@@ -1,14 +1,19 @@
-import { Box, Center, Flex, Heading, Spinner, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react";
-import {memo,useEffect,VFC}from"react";
+import { Box, Center, Flex, Heading, Spinner, Stack, Text, Wrap, WrapItem, useDisclosure } from "@chakra-ui/react";
+import {memo,useCallback,useEffect,VFC}from"react";
 import { UserCard } from "../organisms/user/UserCard";
 import { useAllUsers } from "../../hooks/useAllUsers";
 import { useHistory } from "react-router-dom";
 import { MainButton } from "../atoms/button/MainButton";
+import { UserDetailModal } from "../organisms/user/UserDetailModal";
+import { useSelectUser } from "../../hooks/useSelectUser";
 export const ContentRecruitment: VFC = memo(()=>{
     const {getUsers,users,loading}=useAllUsers();
+    const { isOpen,onOpen,onClose}=useDisclosure();
+    const {onSelectUser,selectedUser}=useSelectUser();
     useEffect(()=>getUsers(),[]);
     const history=useHistory();
     const onClickUserCard=()=>history.push("/home/user_search/result/user_detail")
+        //history.push("/home/user_search/result/user_detail")
     const onClickApplication=()=>history.push("/home/co_developer/search/result/detail/application")
     useEffect(() => {
         // ローカルストレージから情報を取得
@@ -37,12 +42,12 @@ export const ContentRecruitment: VFC = memo(()=>{
         ):(
     <Wrap p={{base:4,md:10}} justify="center">
         {users.map((user)=>(
-            <WrapItem key={user.id} >
+            <WrapItem key={user.userid} >
                 <UserCard 
-                    id={user.id}
+                    userid={user.userid}
                     imageUrl="https://source.unsplash.com/random" 
                     userName={user.username} 
-                    fullName={user.name}
+                    industry={user.industry}
                     onClick={onClickUserCard}
                 />
             </WrapItem>

@@ -5,13 +5,16 @@ import { PrimaryButton } from "../atoms/button/PrimaryButton";
 import { useAuth } from "../../hooks/useAuth";
 import { useHistory } from "react-router-dom";
 import { MainButton } from "../atoms/button/MainButton";
+import { useUsernameSearch } from "../../hooks/useUsernameSearch";
+import { useUsersSearch } from "../../hooks/useUsersSearch";
 
 export const UserSearch: VFC = memo(()=>{
-    const{login,loading}=useAuth();
     const [userName,setUserName] =useState('');
     const [industry,setIndustry] =useState<string[]>([]);
     const [occupation,setOccupation]=useState<string[]>([]);
     const [programming,setProgramming]=useState<string[]>([]);
+    const {usernameSearch,loading}=useUsernameSearch();
+    const {userSearch,loading1}=useUsersSearch();
 
     const onChangeUserName = (e: ChangeEvent<HTMLInputElement>)=>setUserName(e.target.value);
     const onChangeIndustry=(newSelectedIndustries: string[])=>setIndustry(newSelectedIndustries);
@@ -19,7 +22,8 @@ export const UserSearch: VFC = memo(()=>{
     const onChangeProgramming=(newSelectedProgramming:string[])=>setProgramming(newSelectedProgramming);
     
     const history=useHistory();
-    const onClickUserSearch=()=>history.push("/home/user_search/result")
+    const onClickUsernameSearch=()=>usernameSearch(userName);
+    const onClickUserSearch=()=>userSearch(industry,occupation,programming);
     useEffect(() => {
         // ローカルストレージから情報を取得
         const storedInfo = localStorage.getItem("loggedInUser");
@@ -37,7 +41,7 @@ export const UserSearch: VFC = memo(()=>{
                 <Heading as="h1" p={6} size="xl" textAlign="center">ユーザ名で検索</Heading>
                 <Stack spacing={6} py={4} px={10}>
                         <Input placeholder="ユーザ名" value={userName} onChange={onChangeUserName}/>
-                        <MainButton loading={loading} onClick={onClickUserSearch}>検索</MainButton>
+                        <PrimaryButton disabled={userName ===""} loading={loading} onClick={onClickUsernameSearch}>検索</PrimaryButton>
                 </Stack>
             </Box>
         </Flex>
@@ -99,7 +103,7 @@ export const UserSearch: VFC = memo(()=>{
         </Stack>
         </CheckboxGroup>
         <Stack spacing={6} py={4} px={10}>
-            <MainButton  loading={loading} onClick={onClickUserSearch}>検索</MainButton>
+            <PrimaryButton disabled={ industry.length ===0 && occupation.length===0 && programming.length===0} loading={loading1} onClick={onClickUserSearch}>検索</PrimaryButton>
         </Stack>
     </Box>  
     </Flex>
