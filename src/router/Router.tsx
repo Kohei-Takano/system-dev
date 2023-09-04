@@ -12,6 +12,7 @@ import { RecruitsProvider } from "../providers/RecruitsProvider";
 import { RecruitDataProvider } from "../providers/RecruitDataProvider";
 import { ListProvider } from "../providers/ListProvider";
 import { MembersProvider } from "../providers/MembersProvider";
+import { MessagesProvider } from "../providers/MessagesProvider";
 
 export const Router:FC=memo(()=>{
     return(
@@ -20,6 +21,7 @@ export const Router:FC=memo(()=>{
                 <RecruitsProvider>
                     <RecruitDataProvider>
                         <MembersProvider>
+                            <MessagesProvider>
                         <ListProvider>
             <UsersProvider>
             <Route exact path="/"> 
@@ -41,6 +43,7 @@ export const Router:FC=memo(()=>{
             )}
             /></UsersProvider>
             </ListProvider>
+            </MessagesProvider>
             </MembersProvider>
             </RecruitDataProvider>
             </RecruitsProvider>
