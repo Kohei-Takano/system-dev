@@ -1,7 +1,6 @@
 import { ApplicationList } from "../components/pages/ApplicationList";
 import { ApplicationMessage } from "../components/pages/ApplicationMessage";
 import { CoDeveloper } from "../components/pages/CoDeveloper";
-import { ContentRecruitment } from "../components/pages/ContentRecruitment";
 import { FriendsList } from "../components/pages/FriendsList";
 import { Home } from "../components/pages/Home";
 import { NewRecruitment } from "../components/pages/NewRecruitment";
@@ -19,7 +18,7 @@ import { UserSearchResult } from "../components/pages/UserSearchResult";
 
 export const homeRoutes = [
     {
-        path:"/",
+        path:"",
         exact:true,
         children:<Home/>
     },
@@ -50,7 +49,7 @@ export const homeRoutes = [
     },
     {
         path:"/co_developer/participant/:recruitId",
-        exact:false,
+        exact:true,
         children:<ParticipantsMessages/>
     },
     {
@@ -74,17 +73,12 @@ export const homeRoutes = [
         children:<ApplicationMessage/>
     },
     {
-        path:"/co_developer/search/result/:recruitId/application/content",
-        exact:false,
-        children:<ContentRecruitment/>
-    },
-    {
         path:"/co_developer/:recruitId",
         exact:true,
         children:<RecruitmentMessages/>
     },
     {
-        path:"/co_developer/new_recruit",
+        path:"/co_developer/recruit/new_recruit",
         exact:true,
         children:<NewRecruitment/>
     },

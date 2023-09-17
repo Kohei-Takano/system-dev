@@ -4,12 +4,17 @@ import { MainButton } from "../atoms/button/MainButton";
 import { useHistory, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useOtherUsers } from "../../hooks/useOtherUsers";
+import { useUserMessages } from "../../hooks/useUsersMessages";
+import { useFriendMessages } from "../../hooks/useFriendMessages";
 export const UserDetail: VFC = memo(()=>{
     const{login,loading}=useAuth();
     const {users}=useOtherUsers();
     const {userId}=useParams<{ userId: string }>();
     const history=useHistory();
+    const {userMessages}=useUserMessages()
+   
     const onClickGoUserMessages=()=>history.push(`/home/user_search/result/${userId}/messages`)
+    //userMessages(userId)
     useEffect(() => {
         // ローカルストレージから情報を取得
         const storedInfo = localStorage.getItem("loggedInUser");

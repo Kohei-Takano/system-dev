@@ -17,29 +17,31 @@ export const useRecruitDetail=()=>{
     const {messages}=useMessages()
     const auth = getAuth();
     const recruitDetail=useCallback(async(recruitId:string)=>{
-        setLoading(true);
-        const findMembers=members.find((member)=>{
-            return member.recruitid===recruitId
-          })
-        const findMessages=messages.find((message)=>{
-            return message.recruitid===recruitId
-        })
+        //setLoading(true);
+        //const findMembers=members.find((member)=>{
+        //    return member.recruitid===recruitId
+        //  })
+        //const findMessages=messages.find((message)=>{
+        //    return message.recruitid===recruitId
+        //})
         
-        if(!findMembers){
-            await addDoc(collection(db,"members"),{
-                teamMembers: [auth.currentUser?.uid],
-                recruitid: recruitId
-            });
-            }
-            if(!findMessages){
-                await addDoc(collection(db,"messages"),{
-                    messages: [],
-                    recruitid: recruitId,
-                    usersid:[auth.currentUser?.uid]
-                })
-            }
-            setLoading(false);
+        //if(!findMembers){
+        //    await addDoc(collection(db,"members"),{
+        //        teamMembers: [auth.currentUser?.uid],
+        //        recruitid: recruitId
+        //    });
+        //    }
+        //    if(!findMessages){
+        //        await addDoc(collection(db,"messages"),{
+        //            messages: [],
+        //            recruitid: recruitId,
+        //            usersid:[auth.currentUser?.uid]
+        //        })
+        //    }
+        //    setLoading(false);
             history.push(`/home/co_developer/${recruitId}`)
-        },[history,showMessage,auth,addDoc]);
+        },[history
+            //showMessage,auth,addDoc
+        ]);
         return{recruitDetail,loading};    
 }

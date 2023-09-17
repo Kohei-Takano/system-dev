@@ -13,17 +13,27 @@ import { RecruitDataProvider } from "../providers/RecruitDataProvider";
 import { ListProvider } from "../providers/ListProvider";
 import { MembersProvider } from "../providers/MembersProvider";
 import { MessagesProvider } from "../providers/MessagesProvider";
+import { OtherTeamMembersProvider } from "../providers/OtherTeamMembersProvider";
+import { ParticipationProvider } from "../providers/ParticipationProvider";
+import { ParticipantMessagesProvider } from "../providers/ParticipantMessagesProvider";
+import { FriendMessagesProvider } from "../providers/FriendMessagesProvider";
+import { FriendsProvider } from "../providers/FriendsProvider";
 
 export const Router:FC=memo(()=>{
     return(
         <Switch>
             <LoginUserProvider>
+                <FriendsProvider>
                 <RecruitsProvider>
                     <RecruitDataProvider>
                         <MembersProvider>
                             <MessagesProvider>
+                                <OtherTeamMembersProvider>
+                                    <ParticipationProvider>
+                                    <ParticipantMessagesProvider>
                         <ListProvider>
             <UsersProvider>
+                <FriendMessagesProvider>
             <Route exact path="/"> 
                 <Login/>
             </Route>
@@ -41,12 +51,17 @@ export const Router:FC=memo(()=>{
                     ))} 
                 </Switch>
             )}
-            /></UsersProvider>
+            /></FriendMessagesProvider>
+            </UsersProvider>
             </ListProvider>
+            </ParticipantMessagesProvider>
+            </ParticipationProvider>
+            </OtherTeamMembersProvider>
             </MessagesProvider>
             </MembersProvider>
             </RecruitDataProvider>
             </RecruitsProvider>
+            </FriendsProvider>
             </LoginUserProvider>
             <Route path="*">
                 <Page404/>

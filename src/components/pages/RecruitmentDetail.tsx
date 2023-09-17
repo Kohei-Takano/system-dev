@@ -7,14 +7,20 @@ import { MainButton } from "../atoms/button/MainButton";
 import { useRecruits } from "../../hooks/useRecruits";
 import { useOtherUsers } from "../../hooks/useOtherUsers";
 import { User } from "../../types/api/user";
+import { useMembers } from "../../hooks/useMembers";
+import { Recruit } from "../../types/api/recruit";
+import { useRecruitDetailSearch } from "../../hooks/useRecruitDetailSearch";
 export const RecruitmentDetail: VFC = memo(()=>{
     const {getUsers,loading}=useAllUsers();
     const {recruitId}=useParams<{ recruitId: string }>();
     const {recruits}=useRecruits();
     const {users}=useOtherUsers();
-    useEffect(()=>getUsers(),[]);
+    const {members}=useMembers();
+    //useEffect(()=>getUsers(),[]);
+
+    const {recruitDetailSearch}=useRecruitDetailSearch()
     const history=useHistory();
-    const onClickUserCard=()=>history.push("/home/user_search/result/user_detail")
+    const onClickUserCard=(userId:string)=>history.push(`/home/user_search/result/${userId}`)
     const onClickApplication=()=>history.push(`/home/co_developer/search/result/${recruitId}/application`)
     const { pathname } = useLocation();
 
@@ -29,14 +35,20 @@ export const RecruitmentDetail: VFC = memo(()=>{
           history.push("/"); // ログインページへ遷移
         }
       }, [history]);
-      const findRecruit=recruits.find((recruit)=>{
-        return recruit.recruitid===recruitId
-      })
+
+        const findRecruit=recruits.find((recruit)=>{
+            return recruit.recruitid===recruitId
+          })
+      useEffect(()=>{
+        recruitDetailSearch(recruitId);
+      },[])
+      
       const newPeople:string[]=[];
       const newThing:string[]=[];
       const newTime:string[]=[];
       
       if(findRecruit){
+        
     const changePeople:string[]=findRecruit.people.map((onePeople:string)=>{
         switch(onePeople){
             case "1":

@@ -38,11 +38,11 @@ export const UserRegister: VFC = memo(()=>{
             <Divider my={4}/>
             <CheckboxGroup onChange={onChangeIndustry} defaultValue={[]}>
             <Stack direction='column' spacing={6} py={4} px={10}>
-                <Checkbox value='1'>情報処理サービス業界</Checkbox>
-                <Checkbox value='2'>ゲーム業界</Checkbox>
-                <Checkbox value='3'>Web・インターネット業界</Checkbox>
-                <Checkbox value='4'>ハードウェア業界</Checkbox>
-                <Checkbox value='5'>ソフトウェア業界</Checkbox>
+                <Checkbox value='情報処理サービス業界'>情報処理サービス業界</Checkbox>
+                <Checkbox value='ゲーム業界'>ゲーム業界</Checkbox>
+                <Checkbox value='インターネット業界'>Web・インターネット業界</Checkbox>
+                <Checkbox value='ハードウェア業界'>ハードウェア業界</Checkbox>
+                <Checkbox value='ソフトウェア業界'>ソフトウェア業界</Checkbox>
             </Stack>
             </CheckboxGroup>
         </Box>  

@@ -1,5 +1,5 @@
 import { Center, Heading, Spinner, Stack, Wrap, WrapItem } from "@chakra-ui/react";
-import {memo,useEffect,VFC}from"react";
+import {memo,useCallback,useEffect,VFC}from"react";
 import { BigButton } from "../atoms/button/BigButton";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
@@ -11,20 +11,25 @@ import { getAuth } from "firebase/auth";
 import { Recruit } from "../../types/api/recruit";
 import { useRecruitDetailSearch } from "../../hooks/useRecruitDetailSearch";
 import { useRecruitDetail } from "../../hooks/useRecruitDetail";
+import { useMembers } from "../../hooks/useMembers";
+import { useParticipation } from "../../hooks/useParticipation";
 
 export const CoDeveloper: VFC = memo(()=>{
     const{login,loading}=useAuth();
-    
+    const{members,setMembers}=useMembers();
     const{recruits,applications}=useRecruitTeam();
+    const{participation}=useParticipation()
     const auth=getAuth();
     const history=useHistory();
     const {recruitDetail}=useRecruitDetail();
     const {recruitDetailSearch}=useRecruitDetailSearch();
-    const onClickNewRecruit=()=>history.push("/home/co_developer/new_recruit")
+    const onClickNewRecruit=()=>history.push("/home/co_developer/recruit/new_recruit");
+        //history.push("/home/co_developer/new_recruit")
+    
     const onClickRecruitSearch=()=>history.push("/home/co_developer/search")
     const onClickRecruitDetail=(recruitId:string)=>recruitDetail(recruitId)//history.push(`/home/co_developer/${recruitId}`)
     const onClickParticipantDetail=(recruitId:string)=>history.push(`/home/co_developer/participant/${recruitId}`)
-    const onClickRecruitmentDetail=(recruitId:string)=>recruitDetailSearch(recruitId)
+    const onClickRecruitmentDetail=(recruitId:string)=>history.push(`/home/co_developer/search/result/${recruitId}`)//recruitDetailSearch(recruitId)
     //history.push(`/home/co_developer/search/result/${recruitId}`)
     
     const myRecruit=[]
@@ -64,7 +69,7 @@ export const CoDeveloper: VFC = memo(()=>{
                 </Stack>
             </WrapItem>
     </Wrap>
-    <Heading as="h2" p={6} size="xl" textAlign="center">自分が募集しているチーム</Heading>
+    <Heading as="h2" p={6} size="xl" textAlign="center">募集中のチーム</Heading>
     {loading ? (
         <Center h="100vh">
             <Spinner/>
@@ -82,14 +87,14 @@ export const CoDeveloper: VFC = memo(()=>{
         ))}
     </Wrap>
         )}
-    <Heading as="h2" p={6} size="xl" textAlign="center">自分が参加中のチーム</Heading>
+    <Heading as="h2" p={6} size="xl" textAlign="center">参加中のチーム</Heading>
     {loading ? (
         <Center h="100vh">
             <Spinner/>
         </Center>
         ):(
     <Wrap p={{base:4,md:10}} justify="center">
-        {applyRecruit?.map((recruit:Recruit)=>(
+        {participation?.map((recruit:Recruit)=>(
             <WrapItem key={recruit.recruitid} >
                 <RecruitCard
                     recruitid={recruit.recruitid} 

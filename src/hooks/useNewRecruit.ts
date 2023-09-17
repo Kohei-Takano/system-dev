@@ -15,7 +15,7 @@ export const useNewRecruit=()=>{
     const newRecruit=useCallback(async(recruitTitle:string,text:string,thing:string[],time:string[],people:string[])=>{
         setLoading(true);
         if(recruitTitle||text||thing||time||people){
-            await addDoc(collection(db,"recruit"),{
+            const recruitDocRef=await addDoc(collection(db,"recruit"),{
                 recruitTitle:recruitTitle,
                 text:text,
                 thing:thing,
@@ -23,8 +23,18 @@ export const useNewRecruit=()=>{
                 people:people,
                 userid:auth.currentUser?.uid
             });
+            const recruitId=recruitDocRef.id;
+            await addDoc(collection(db, "members"), {
+                teamMembers: [auth.currentUser?.uid],
+                recruitid: recruitId
+              });
+              await addDoc(collection(db,"messages"),{
+                messages: [{key:0,value:"会話を開始しました",userId:auth.currentUser?.uid}],
+                recruitid: recruitId,
+                usersid:[auth.currentUser?.uid]
+            })
             setLoading(false);
-            history.push("/home/co_developer")
+            history.push("/home")
             showMessage({title:"新規募集を開始しました",status:"success"})
             }else{
                 showMessage({title:"募集は行われませんでした",status:"error"})

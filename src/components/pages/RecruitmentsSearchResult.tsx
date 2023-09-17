@@ -37,7 +37,7 @@ export const RecruitmentsSearchResult: VFC = memo(()=>{
               history.push("/"); // ログインページへ遷移
             }
           }, [history]);
-          const onClickRecruitmentDetail =(recruitId:string)=> recruitDetailSearch(recruitId);//history.push(`/home/co_developer/search/result/${recruitId}`)
+          const onClickRecruitmentDetail =(recruitId:string)=> history.push(`/home/co_developer/search/result/${recruitId}`)//recruitDetailSearch(recruitId);
     return(
     <>
     <Heading as="h1" p={6} fontSize="3xl" textAlign="center">検索結果</Heading>

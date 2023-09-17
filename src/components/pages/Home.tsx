@@ -11,17 +11,19 @@ import { doc, getDoc,query, where,collection, getDocs } from "firebase/firestore
 import { auth, db } from "../../firebase";
 import { useUserData } from "../../hooks/useUserData";
 import { useRecruitTeam } from "../../hooks/useRecruitTeam";
+import { useGoFriends } from "../../hooks/useGoFriends";
 
 export const Home: VFC = memo(()=>{
     const{login,loading}=useAuth();
     const [userData, setUserData] = useState<{
         username: string;
-        processedIndustry: string[];
+        industry: string[];
         processedOccupation: string[];
         processedProgramming: string[];
       } | null>(null);
 
       const {recruitTeam}=useRecruitTeam();
+      const {goFriends}=useGoFriends()
       const history=useHistory();
 
       useEffect(() => {
@@ -34,16 +36,17 @@ export const Home: VFC = memo(()=>{
       }, [history]);
     useEffect(() => {
         const FetchUserData = async () => {
-          const userData = await useUserData();
-          setUserData(userData);
-        };
+            const userData = await useUserData();
+            setUserData(userData);
+        }
         FetchUserData();
       }, []);
       
     const onClickGoUserSearch=()=>history.push("/home/user_search")
     const onClickGoCoDeveloper=()=>recruitTeam()
     //history.push("/home/co_developer")
-    const onClickGoFriendList=()=>history.push("/home/friend_list")
+    const onClickGoFriendList=()=>goFriends()
+    //history.push("/home/friend_list")
     const onClickGoUserRegister=()=>history.push("/home/user_info")
     
     return( 
@@ -64,7 +67,7 @@ export const Home: VFC = memo(()=>{
                 </WrapItem>
                 <WrapItem>
                     <Stack textAlign="center">
-                        <BigButton loading={loading} onClick={onClickGoFriendList}>友だちリスト</BigButton>
+                        <BigButton loading={loading} onClick={onClickGoFriendList}>フレンドリスト</BigButton>
                     </Stack>
                 </WrapItem>
             </Wrap>
@@ -91,7 +94,7 @@ export const Home: VFC = memo(()=>{
             </WrapItem>
             <WrapItem>
                 <Stack textAlign="center">
-                    <BigButton loading={loading} onClick={onClickGoFriendList}>友だちリスト</BigButton>
+                    <BigButton loading={loading} onClick={onClickGoFriendList}>フレンドリスト</BigButton>
                 </Stack>
             </WrapItem>
         </Wrap>
@@ -103,7 +106,7 @@ export const Home: VFC = memo(()=>{
         </Flex>
         <Flex align="center" justify="center" height="80px">
             <Box bg="white" w="2xl" p={4} borderRadius="md" shadow="md">
-            <Heading as="h2" p={6} size="md" textAlign="center">志望業界：{userData?.processedIndustry.join(", ")}</Heading>
+            <Heading as="h2" p={6} size="md" textAlign="center">志望業界：{userData?.industry.join(", ")}</Heading>
             </Box>
         </Flex>
         <Flex align="center" justify="center" height="200px">

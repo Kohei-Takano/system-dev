@@ -11,7 +11,7 @@ export const useUserData=()=>{
     const querySnapshot = await getDocs(userQuery);
         
     let username:string = "";
-    let processedIndustry: string[] = [];
+    let industry: string[] = [];
     let processedOccupation: string[] = [];
     let processedProgramming: string[] = [];
 
@@ -23,23 +23,24 @@ export const useUserData=()=>{
             const industry=docData.industry;
             const occupation=docData.occupation;
             const programming=docData.programming;
-            const processedIndustry= industry.map((oneIndustry:string) => {
-                switch(oneIndustry){
-                    case "1":
-                    return "情報処理サービス業界";
-                    case "2":
-                    return "ゲーム業界";
-                    case "3":
-                    return "Web・インターネット業界";
-                    case "4":
-                    return "ハードウェア業界";
-                    case "5":
-                    return "ソフトウェア業界";
-                    default:
-                    return ""; // もし想定外の値が入っていた場合のデフォルト処理
-                }
-                return oneIndustry
-              });
+        // const processedIndustry= industry.map((oneIndustry:string) => {
+        //   switch(oneIndustry){
+        //            case "1":
+        //            return "情報処理サービス業界";
+        //            case "2":
+        //            return "ゲーム業界";
+        //            case "3":
+        //            return "Web・インターネット業界";
+        //            case "4":
+        //            return "ハードウェア業界";
+        //            case "5":
+        //            return "ソフトウェア業界";
+        //            default:
+        //            return ""; // もし想定外の値が入っていた場合のデフォルト処理
+        //        }
+        //        return oneIndustry
+        //      });
+
             const processedOccupation=occupation.map((oneOccupation:string)=>{
                 switch(oneOccupation){
                     case "1":
@@ -110,10 +111,10 @@ export const useUserData=()=>{
                 }
                 return oneProgramming
             })
-            return {username,processedIndustry,processedOccupation,processedProgramming}
-            }
-        }
+            
+            return {username,industry,processedOccupation,processedProgramming}
+        }}
             return null;
-        };
+        }
         return getUserData();
     }

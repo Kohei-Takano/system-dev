@@ -14,6 +14,8 @@ import { useMembers } from "./useMembers";
 import { Member } from "../types/api/member";
 import { Message } from "../types/api/message";
 import { useMessages } from "./useMessages";
+import { useParticipation } from "./useParticipation";
+import { useParticipantMessages } from "./useParticipantMessages";
 export type Data={
     industry: string[];
     occupation: string[];
@@ -30,11 +32,15 @@ export const useRecruitTeam=()=>{
     const {applications,setApplications}=useRecruitData()
     const {members,setMembers}=useMembers()
     const {messages,setMessages}=useMessages()
+    const {participation,setParticipation}=useParticipation()
+    const {participantMessages,setParticipantMessages}=useParticipantMessages()
     const recruitData:string[]=[]
     const recruitTeam=useCallback(async()=>{
         const myRecruits:Recruit[]=[] 
         const myTeam:Member[]=[]
         const myMessages:Message[]=[]
+        const participants:Recruit[]=[]
+        const participantMessage:Message[]=[]
         
     try{
         const q1 = query(collection(db, "recruit"), where("userid", "==", auth.currentUser?.uid));
@@ -98,7 +104,12 @@ export const useRecruitTeam=()=>{
                       myRecruits.push(recruitData);
                     }
                   }
+                  if(myRecruits.length!==0){
+                    setRecruits(myRecruits);
+                    setApplications(recruitData)
                 
+                   
+                }
                 //const q4=query(recruitsCollection,where(,"in",applications));
                 
                 //const q4QuerySnapshot = await getDocs(q4);
@@ -130,6 +141,9 @@ export const useRecruitTeam=()=>{
                 myTeam.push(data)
                 }
                 )}
+                if(myTeam.length!==0){
+                  setMembers(myTeam)
+              }
                 const q6 =query(collection(db,"messages"),where("usersid","array-contains",auth.currentUser?.uid));
                 const q6QuerySnapshot=await getDocs(q6);
                 if(!q6QuerySnapshot.empty){
@@ -143,27 +157,77 @@ export const useRecruitTeam=()=>{
                       myMessages.push(data)
                       }
                       )}
+                      if(myMessages.length!==0){
+                        setMessages(myMessages)
+                      }
 
-                if(myRecruits.length!==0){
-                    setRecruits(myRecruits);
-                    setApplications(recruitData)
-                
-                   
+                      const participant=myTeam.filter(oneTeam=>{
+                        if(auth.currentUser){
+                        const isUserMember = oneTeam.teamMembers.includes(auth.currentUser.uid);
+                        const isNotTeamLeader = oneTeam.teamMembers[0] !== auth.currentUser.uid
+                        return isUserMember && isNotTeamLeader;
+                          }
+                        }
+                        )
+                        
+                        const recruitids=participant.map(oneParticipant=>oneParticipant.recruitid)
+                        const recruitCollection = collection(db, 'recruit');
+                        
+                for (const oneRecruitid of recruitids) {
+                  try{
+                    const docRef = doc(recruitCollection, oneRecruitid);
+                    const docSnapshot = await getDoc(docRef);
+                    
+                    if (docSnapshot.exists()) {
+                      const data = docSnapshot.data();
+                      const recruitid=oneRecruitid
+                        const people=data.people
+                        const recruitTitle=data.recruitTitle
+                        const text=data.text
+                        const thing=data.thing
+                        const time=data.time
+                        const userid=data.userid
+                        const recruitData:Recruit={recruitid,people,recruitTitle,text,thing,time,userid}
+                      participants.push(recruitData);
+                    }
+                  }catch(error){
+                    
+                  }
+                  }
+                  try{
+                  const q7 =query(collection(db,"messages"),where("recruitid","in",recruitids));
+                  const q7QuerySnapshot=await getDocs(q7);
+                  
+                  if(!q7QuerySnapshot.empty){
+                    q7QuerySnapshot.forEach((doc) => {
+                      const docData= doc.data();
+                      const messagesid=doc.id
+                      const recruitid=docData.recruitid
+                        const messages=docData.messages
+                        const usersid=docData.usersid
+                        const data:Message={messages,recruitid,usersid,messagesid}
+                        participantMessage.push(data)
+                        }
+                        )}
+                      }catch(error){
+                      }
+                if(participants.length!==0 && participantMessage.length!==0){
+                  setParticipation(participants)
+                  setParticipantMessages(participantMessage)
                 }
-                if(myTeam.length!==0){
-                    setMembers(myTeam)
-                }
-                
-                if(myMessages.length!==0){
-                  setMessages(myMessages)
-                }
+              
 
-                history.push("/home/co_developer/")
+                
+                
+                
+                
+                
+                history.push("/home/co_developer")
                       
                     
             }catch(error){
-        
                 showMessage({title:"関与中の募集データの取得に失敗しました",status:"error"});
-            }},[history,showMessage,setRecruits,setApplications,setMembers,setMessages])
-            return{recruitTeam,recruits,applications,members,messages}
+                history.push("/home/co_developer")
+            }},[history,showMessage,setParticipation,setParticipantMessages,setRecruits,setApplications,setMembers,setMessages])
+            return{recruitTeam,recruits,applications,members,messages,participation,participantMessages}
         }

@@ -1,4 +1,4 @@
-import { Box, Image, Stack, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Stack, Text } from "@chakra-ui/react";
 import{memo,ReactNode,VFC}from"react";
 
 type Props={
@@ -12,9 +12,10 @@ type Props={
 export const UserCard:VFC<Props>=memo((props)=>{
     const {userid,imageUrl,userName,industry,onClick}=props;
     return(
+        <Flex align="center" justify="center">
         <Box
         w="260px" 
-        h="260px" 
+       
         bg="white" 
         borderRadius="10px" 
         shadow="md" 
@@ -31,8 +32,13 @@ export const UserCard:VFC<Props>=memo((props)=>{
               m="auto"
               />
               <Text fontSize="lg" fontWeight="bold">{userName}</Text>
-              <Text fontSize="sm" color="gray">{industry}</Text>
+              <Text fontSize="md" color="blue.700" fontWeight="bold">志望業界</Text>
+              {industry.map((oneIndustry,index)=>(
+                <Text fontSize="sm" color="gray" key={index} >{oneIndustry}</Text>
+              ))}
+              
           </Stack>
       </Box>
+      </Flex>
     );
 });

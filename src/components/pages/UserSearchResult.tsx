@@ -16,27 +16,29 @@ export const UserSearchResult: VFC = memo(()=>{
     //const {getUsers,users,loading}=useAllUsers();
     const {onSelectUser,selectedUser}=useSelectUser();
     const {users}=useOtherUsers();
-    useEffect(()=>{
-    users.forEach((user) => {
-        console.log("Before mapping:", user.industry);
-        user.industry = user.industry.map((oneIndustry:string) => {
-               console.log("Inside mapping:", oneIndustry);
-            switch(oneIndustry){
-                case '1':
-                return "情報処理サービス業界";
-                case '2':
-                return "ゲーム業界";
-                case '3':
-                return "Web・インターネット業界";
-                case '4':
-                return "ハードウェア業界";
-                case '5':
-                return "ソフトウェア業界";
-                default:
-                return ""; // もし想定外の値が入っていた場合のデフォルト処理
-            }}
-)});},[]
-)
+    //useEffect(()=>{
+    //users.forEach((user) => {
+      //  console.log("Before mapping:", user.industry);
+        //user.industry = user.industry.map((oneIndustry:string) => {
+          
+        //    switch(oneIndustry){
+        //        case '1':
+        //        return "情報処理サービス業界";
+        //        case '2':
+        //       return "ゲーム業界";
+        //        case '3':
+        //        return "Web・インターネット業界";
+        //        case '4':
+        //        return "ハードウェア業界";
+        //        case '5':
+        //        return "ソフトウェア業界";
+        //        default:
+        //        return ""; // もし想定外の値が入っていた場合のデフォルト処理
+        //    }}
+            
+//)});
+//},[]
+//)
 
 
     //useEffect(()=>getUsers(),[]);
