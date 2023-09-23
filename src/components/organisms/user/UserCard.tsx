@@ -3,14 +3,14 @@ import{memo,ReactNode,VFC}from"react";
 
 type Props={
     userid:string;
-   imageUrl:string;
+   //imageUrl:string;
    userName:string;
-   industry:Array<string>;
+   programming:Array<string>;
    onClick:(id:string)=>void;
 };
 
 export const UserCard:VFC<Props>=memo((props)=>{
-    const {userid,imageUrl,userName,industry,onClick}=props;
+    const {userid,userName,programming,onClick}=props;
     return(
         <Flex align="center" justify="center">
         <Box
@@ -24,17 +24,10 @@ export const UserCard:VFC<Props>=memo((props)=>{
         onClick={()=>onClick(userid)}
         >
           <Stack textAlign="center">
-              <Image 
-              borderRadius="full"
-              boxSize="160px" 
-              src={imageUrl}
-              alt={userName}
-              m="auto"
-              />
               <Text fontSize="lg" fontWeight="bold">{userName}</Text>
-              <Text fontSize="md" color="blue.700" fontWeight="bold">志望業界</Text>
-              {industry.map((oneIndustry,index)=>(
-                <Text fontSize="sm" color="gray" key={index} >{oneIndustry}</Text>
+              <Text fontSize="md" color="blue.700" fontWeight="bold">得意なプログラミング言語</Text>
+              {programming.map((oneProgramming,index)=>(
+                <Text fontSize="sm" color="gray" key={index} >{oneProgramming}</Text>
               ))}
               
           </Stack>

@@ -17,10 +17,10 @@ export const BigButton:VFC<Props>=memo((props)=>{
             borderRadius={40}
             fontSize='40px'
             fontWeight='semibold'
-            bg='cyan.300'
+            bgGradient='linear(to-r, teal.200, orange.50)'
             color='purple.800'
             shadow="md" 
-            _hover={{ opacity:0.8 }}
+            _hover={{ opacity:0.5 }}
             disabled={loading} 
             onClick={onClick}
                 >

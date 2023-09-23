@@ -1,4 +1,4 @@
-import {ChangeEvent, memo,useEffect,useState,VFC}from"react";
+import {ChangeEvent, memo,useEffect,useRef,useState,VFC}from"react";
 import { MainButton } from "../atoms/button/MainButton";
 import { useHistory, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
@@ -25,6 +25,7 @@ export type MessageWithUserName={
 
 export const ParticipantsMessages: VFC = memo(()=>{
     
+    const messagesListRef = useRef<HTMLDivElement | null>(null);
     const {messages, setMessages} = useMessages();
     const [messages1,setMessages1]=useState<MessageWithUserName[]>([]);
     const [text,setText] =useState('');
@@ -41,6 +42,12 @@ export const ParticipantsMessages: VFC = memo(()=>{
         if (text) {
         addMessageToFirestore(text);
     }}
+    useEffect(() => {
+      // メッセージリストの高さを調整して、入力欄の下にメッセージが隠れないようにする
+      if (messagesListRef.current) {
+        messagesListRef.current.style.maxHeight = `${window.innerHeight -180 /* フッターやヘッダーの高さなどを考慮 */}px`;
+      }
+    }, []);
     const findMessages=participantMessages.find((message:Message)=>{
         return message.recruitid===recruitId
     })
@@ -128,12 +135,22 @@ export const ParticipantsMessages: VFC = memo(()=>{
           history.push("/"); // ログインページへ遷移
         }
       }, [history]);
+      useEffect(() => {
+        // 最新のメッセージまでスクロールする
+        if (messagesListRef.current) {
+          messagesListRef.current.scrollTop = messagesListRef.current.scrollHeight;
+        }
+      }, [messages1]);
     return (
         <>
+        <Box flex="1" overflowY="auto" ref={messagesListRef} // フッターのための十分なスペースを残すようにこの値を調整
+        // フッターが固定入力の下に表示されるように、次のCSSスタイルを追加
+        position="relative"
+        minHeight={`calc(100vh - 180px)`}>
         {loading ? (
   // ローディング中の表示
   <p>Loading...</p>
-) : (<>
+) : (
         <UnorderedList>
             {messages1.map((message:MessageWithUserName)=>(
                 <ListItem key={message.key}>
@@ -141,23 +158,27 @@ export const ParticipantsMessages: VFC = memo(()=>{
                 </ListItem>
             ))}
         </UnorderedList>
-        <Wrap justify="center">
-            <WrapItem>
-            <Flex align="center" justify="center">
-            <Box w="lg"> 
+        )}
+        </Box>
+        <Box
+        position="fixed"
+        bottom="0"
+        left="0"
+        right="0"
+        borderTop="1px solid lightgray"
+        p={4}
+        bg="white"
+        zIndex="999"
+      >
+        <Wrap w="100%">
+            <WrapItem flex="0.8"> 
                 <Textarea placeholder="メッセージ"id="メッセージ" borderColor="darkgray" size="sm" value={text} onChange={onChangeText} borderRadius={10}/>
-            </Box> 
-            </Flex>
             </WrapItem>
-            <WrapItem >
-            <Flex align="center" justify="center">
-                <Box w="sm"> 
+            <WrapItem > 
                     <MainButton loading={loading} onClick={onClickSend}>送信</MainButton>
-                </Box> 
-        </Flex>
             </WrapItem>
         </Wrap>
-        </>)}
+        </Box>
         </>
     )
 });

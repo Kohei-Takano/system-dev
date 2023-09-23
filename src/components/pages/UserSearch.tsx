@@ -35,7 +35,7 @@ export const UserSearch: VFC = memo(()=>{
 
     return( 
         <>
-        <Heading as="h1" p={6} size="3xl" textAlign="center">就活仲間を探す</Heading>
+        <Heading as="h1" p={6} size="3xl" textAlign="center">ユーザ検索</Heading>
         <Flex align="center" justify="center" height="320px">
             <Box bg="white" w="2xl" p={4} borderRadius="md" shadow="md">
                 <Heading as="h1" p={6} size="xl" textAlign="center">ユーザ名で検索</Heading>
@@ -48,7 +48,7 @@ export const UserSearch: VFC = memo(()=>{
         <Flex align="center" justify="center" height="2050px">
             <Box bg="white" w="2xl" p={4} borderRadius="md" shadow="md">
                 <Heading as="h1" p={6} size="xl" textAlign="center">条件を指定して検索</Heading>
-            <Heading as="h1" size="lg" textAlign="center">志望業界</Heading>
+            <Heading as="h1" size="lg" textAlign="center">志望業界・現在の業界</Heading>
             <Divider my={4}/>
             <CheckboxGroup onChange={onChangeIndustry} defaultValue={[]}>
             <Stack direction='column' spacing={6} py={4} px={10}>
@@ -60,7 +60,7 @@ export const UserSearch: VFC = memo(()=>{
             </Stack>
             </CheckboxGroup>
         
-        <Heading as="h1" size="lg" textAlign="center">志望職種</Heading>
+        <Heading as="h1" size="lg" textAlign="center">志望職種・現在の職種</Heading>
         <Divider my={4}/>
         <CheckboxGroup onChange={onChangeOccupation} defaultValue={[]}>
         <Stack direction='column' spacing={6} py={4} px={10}>
@@ -85,21 +85,21 @@ export const UserSearch: VFC = memo(()=>{
         <Divider my={4}/>
         <CheckboxGroup onChange={onChangeProgramming} defaultValue={[]}>
         <Stack direction='column' spacing={6} py={4} px={10}>
-            <Checkbox value='1'>Python</Checkbox>
-            <Checkbox value='2'>JavaScript</Checkbox>
-            <Checkbox value='3'>Ruby</Checkbox>
-            <Checkbox value='4'>Java</Checkbox>
-            <Checkbox value='5'>Swift</Checkbox>
-            <Checkbox value='6'>Go</Checkbox>
-            <Checkbox value='7'>C</Checkbox>
-            <Checkbox value='8'>C++</Checkbox>
-            <Checkbox value='9'>C#</Checkbox>
-            <Checkbox value='10'>TypeScript</Checkbox>
-            <Checkbox value='11'>PHP</Checkbox>
-            <Checkbox value='12'>Kotlin</Checkbox>
-            <Checkbox value='13'>Perl</Checkbox>
-            <Checkbox value='14'>Scala</Checkbox>
-            <Checkbox value='15'>VisualBasic.NET</Checkbox>
+            <Checkbox value='Python'>Python</Checkbox>
+            <Checkbox value='JavaScript'>JavaScript</Checkbox>
+            <Checkbox value='Ruby'>Ruby</Checkbox>
+            <Checkbox value='Java'>Java</Checkbox>
+            <Checkbox value='Swift'>Swift</Checkbox>
+            <Checkbox value='Go'>Go</Checkbox>
+            <Checkbox value='C'>C</Checkbox>
+            <Checkbox value='C++'>C++</Checkbox>
+            <Checkbox value='C#'>C#</Checkbox>
+            <Checkbox value='TypeScript'>TypeScript</Checkbox>
+            <Checkbox value='PHP'>PHP</Checkbox>
+            <Checkbox value='Kotlin'>Kotlin</Checkbox>
+            <Checkbox value='Perl'>Perl</Checkbox>
+            <Checkbox value='Scala'>Scala</Checkbox>
+            <Checkbox value='VisualBasic.NET'>VisualBasic.NET</Checkbox>
         </Stack>
         </CheckboxGroup>
         <Stack spacing={6} py={4} px={10}>

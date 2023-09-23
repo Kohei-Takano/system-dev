@@ -45,9 +45,9 @@ export const ContentRecruitment: VFC = memo(()=>{
             <WrapItem key={user.userid} >
                 <UserCard 
                     userid={user.userid}
-                    imageUrl="https://source.unsplash.com/random" 
+                    //imageUrl="https://source.unsplash.com/random" 
                     userName={user.username} 
-                    industry={user.industry}
+                    programming={user.programming}
                     onClick={onClickUserCard}
                 />
             </WrapItem>

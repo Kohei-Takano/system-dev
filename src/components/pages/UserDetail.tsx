@@ -105,7 +105,7 @@ export const UserDetail: VFC = memo(()=>{
     changeOccupation.forEach((element)=>{
         newOccupation.push(element)
     })
-    changeProgramming.forEach((element)=>{
+    findUser.programming.forEach((element)=>{
         newProgramming.push(element)
     })
 }
@@ -113,23 +113,34 @@ export const UserDetail: VFC = memo(()=>{
     <>
     <Heading as="h1" p={6} size="xl" textAlign="center">ユーザ情報</Heading>
     <Flex align="center" justify="center" height="200px">
-            <Box bg="white" w="2xl" p={4} borderRadius="md" shadow="md">
+            <Box bg="white" w="4xl" p={4} borderRadius="md" shadow="md">
                 <Heading as="h2" p={6} size="md" textAlign="center">ユーザ名：{findUser?.username}</Heading>
             </Box>
         </Flex>
-        <Flex align="center" justify="center" height="80px">
-            <Box bg="white" w="2xl" p={4} borderRadius="md" shadow="md">
-            <Heading as="h2" p={6} size="md" textAlign="center">志望業界：{newIndustry.join(", ")}</Heading>
+        <Flex align="center" justify="center" height="70px">
+            <Box bg="white" w="4xl" p={4} borderRadius="md" shadow="md">
+            <Heading as="h2" p={6} size="md" textAlign="center">志望業界・現在の業界：{newIndustry.join(", ")}</Heading>
             </Box>
         </Flex>
         <Flex align="center" justify="center" height="200px">
-            <Box bg="white" w="2xl" p={4} borderRadius="md" shadow="md">
-            <Heading as="h2" p={6} size="md" textAlign="center">志望職種：{newOccupation.join(", ")}</Heading>
+            <Box bg="white" w="4xl" p={4} borderRadius="md" shadow="md">
+            <Heading as="h2" p={6} size="md" textAlign="center">志望職種・現在の職種：{newOccupation.join(", ")}</Heading>
             </Box>
         </Flex>
-        <Flex align="center" justify="center" height="80px">
-            <Box bg="white" w="2xl" p={4} borderRadius="md" shadow="md">
+        <Flex align="center" justify="center" height="70px">
+            <Box bg="white" w="4xl" p={4} borderRadius="md" shadow="md">
             <Heading as="h2" p={6} size="md" textAlign="center">得意なプログラミング言語：{newProgramming.join(", ")}</Heading>
+            </Box>
+        </Flex>
+        <Flex align="center" justify="center" height="200px">
+            <Box bg="white" w="4xl" p={4} borderRadius="md" shadow="md">
+            <Heading as="h2" p={6} size="md" textAlign="center">募集に参加した回数：{findUser?.participationNumber}</Heading>
+            </Box>
+        </Flex>
+        <Flex align="center" justify="center" height="140px">
+            <Box bg="white" w="4xl" p={4} borderRadius="md" shadow="md">
+            <Heading as="h2" p={6} size="md" textAlign="center">記述したコードのURL：{findUser?.url1}</Heading>
+            <Heading as="h2" p={6} size="md" textAlign="center">制作物のURL：{findUser?.url2}</Heading>
             </Box>
         </Flex>
     <Flex align="center" justify="center" height="30vh">

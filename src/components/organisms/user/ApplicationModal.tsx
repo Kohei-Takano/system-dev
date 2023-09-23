@@ -7,6 +7,9 @@ import { BigButton } from "../../atoms/button/BigButton";
 import { List } from "../../../types/api/list";
 import { useDeleteApplication } from "../../../hooks/useDeleteApplication";
 import { useApprove } from "../../../hooks/useApprove";
+import { useOtherUsers } from "../../../hooks/useOtherUsers";
+import { db } from "../../../firebase";
+import { useSetOneUser } from "../../../hooks/useSetOneUser";
 
 
 type Props={
@@ -20,6 +23,8 @@ export const ApplicationModal:VFC<Props>=memo((props)=>{
     const history=useHistory();
     const {approve}=useApprove();
     const {deleteApplication}=useDeleteApplication()
+    const {setOneUser}=useSetOneUser()
+    const {users,setUsers}=useOtherUsers();
     const onClickOk=()=>{
         approve(list?.applicationid,list?.recruitid)
         onClose();
@@ -30,6 +35,11 @@ export const ApplicationModal:VFC<Props>=memo((props)=>{
         onClose();
     }
 
+    const onClickUser=()=>{
+        if(list){
+        setOneUser(list.userid)
+        history.push(`/home/user_search/result/${list.userid}`)
+    }}
     return(
         <Modal isOpen={isOpen} size="xs"onClose={onClose} autoFocus={false} motionPreset="slideInBottom">
         <ModalOverlay />
@@ -47,6 +57,13 @@ export const ApplicationModal:VFC<Props>=memo((props)=>{
                 <Box w="sm">
                     <Stack spacing={4}py={6}px={2}>
                         <PrimaryButton onClick={onClickNo}>拒否</PrimaryButton>
+                    </Stack>
+                </Box>
+            </Flex>
+            <Flex align="left" justify="left" height="12vh">
+                <Box w="sm">
+                    <Stack spacing={4}py={6}px={2}>
+                        <PrimaryButton onClick={onClickUser}>申請ユーザ詳細</PrimaryButton>
                     </Stack>
                 </Box>
             </Flex>

@@ -1,9 +1,9 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { auth, db } from "../firebase";
 
-export const useUserData=()=>{
-    const getUserData = async () => {
-        const user = auth.currentUser;
+export const useUserData=async()=>{
+    //const getUserData = async () => {
+       try{ const user = auth.currentUser;
 
     if (user) {
     const userInfoCollection = collection(db, "userinfo");
@@ -14,7 +14,11 @@ export const useUserData=()=>{
     let industry: string[] = [];
     let processedOccupation: string[] = [];
     let processedProgramming: string[] = [];
+    let participationNumber:number;
+    let url1:string="";
+    let url2:string="";
 
+    console.log(!querySnapshot.empty)
     if (!querySnapshot.empty) {
             const docData = querySnapshot.docs[0].data();
             
@@ -23,6 +27,9 @@ export const useUserData=()=>{
             const industry=docData.industry;
             const occupation=docData.occupation;
             const programming=docData.programming;
+            const participationNumber=docData.participationNumber;
+            const url1=docData.url1;
+            const url2=docData.url2;
         // const processedIndustry= industry.map((oneIndustry:string) => {
         //   switch(oneIndustry){
         //            case "1":
@@ -112,9 +119,12 @@ export const useUserData=()=>{
                 return oneProgramming
             })
             
-            return {username,industry,processedOccupation,processedProgramming}
-        }}
+            return {username,industry,processedOccupation,programming,participationNumber,url1,url2}
+        }}} catch (error) {
+            console.log(error)
+            throw error;
             return null;
+            
         }
-        return getUserData();
+        //return getUserData();
     }

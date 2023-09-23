@@ -82,11 +82,11 @@ export const useRecruitSearch=()=>{
             setRecruits(uniqueRecruits);
             history.push("/home/co_developer/search/result")
         }else{
-              showMessage({title:"ユーザが見つかりません",status:"error"})
+              showMessage({title:"募集が見つかりません",status:"error"})
             }
     }catch(error){
 
-        showMessage({title:"ユーザ取得に失敗しました",status:"error"});
+        showMessage({title:"募集情報の取得に失敗しました",status:"error"});
     }finally{
         setLoading1(false);
     }},[history,showMessage,setRecruits])

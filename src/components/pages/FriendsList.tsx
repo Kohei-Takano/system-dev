@@ -1,4 +1,4 @@
-import { Center, FormControl, FormLabel, Heading, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Spinner, Stack, Wrap, WrapItem, useDisclosure } from "@chakra-ui/react";
+import { Box, Center, FormControl, FormLabel, Heading, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Spinner, Stack, Wrap, WrapItem, useDisclosure } from "@chakra-ui/react";
 import {memo,useCallback,useEffect,VFC}from"react";
 import { UserCard } from "../organisms/user/UserCard";
 import { useAllUsers } from "../../hooks/useAllUsers";
@@ -26,6 +26,7 @@ export const FriendsList: VFC = memo(()=>{
     return(
     <>
     <Heading as="h1" p={6} size="3xl" textAlign="center">フレンドリスト</Heading>
+    <Box position="relative"minHeight={`calc(100vh - 290px)`}>
     {loading ? (
         <Center h="100vh">
             <Spinner/>
@@ -36,15 +37,15 @@ export const FriendsList: VFC = memo(()=>{
             <WrapItem key={user.userid} >
                 <UserCard 
                     userid={user.userid}
-                    imageUrl="https://source.unsplash.com/random" 
+                    //imageUrl="https://source.unsplash.com/random" 
                     userName={user.username} 
-                    industry={user.industry}
+                    programming={user.programming}
                     onClick={onClickUserCard}
                 />
             </WrapItem>
         ))}
     </Wrap>
-    )}
+    )}</Box>
     </>
     )
 });

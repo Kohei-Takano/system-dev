@@ -23,7 +23,7 @@ export const ApplicationMessage: VFC = memo(()=>{
     return (
         <>
         <Heading as="h1" p={6} size="3xl" textAlign="center">応募メッセージ編集</Heading>
-        <Flex align="center" justify="center" height="320px">
+        <Flex align="center" justify="center" position="relative"minHeight={`calc(100vh - 290px)`}>
             <Box bg="white" w="2xl" p={4} borderRadius="md" shadow="md">
                 <Stack spacing={6} py={4} px={10}>
                         <Textarea placeholder="応募メッセージ" size="lg" value={text} onChange={onChangeText}/>

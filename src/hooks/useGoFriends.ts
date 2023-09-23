@@ -76,7 +76,10 @@ export const useGoFriends=()=>{
                             const programming=docData.programming
                             const userid=docData.userid
                             const username=docData.username
-                            const data:User={industry,occupation,programming,userid,username}
+                            const participationNumber=docData.participationNumber
+                            const url1=docData.url1
+                            const url2=docData.url2
+                            const data:User={industry,occupation,programming,userid,username,participationNumber,url1,url2}
                             console.log(data)
                             if(!row.some((u)=>u.userid===userid)){
                             row.push(data);

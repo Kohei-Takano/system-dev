@@ -64,16 +64,16 @@ export const RecruitmentsSearch: VFC = memo(()=>{
         <Divider my={4}/>
         <CheckboxGroup onChange={onChangeTime} defaultValue={[]}>
         <Stack direction='column' spacing={6} py={4} px={10}>
-            <Checkbox value='1'>3カ月以下</Checkbox>
-            <Checkbox value='2'>4カ月</Checkbox>
-            <Checkbox value='3'>5カ月</Checkbox>
-            <Checkbox value='4'>6カ月</Checkbox>
-            <Checkbox value='5'>7カ月</Checkbox>
-            <Checkbox value='6'>8カ月</Checkbox>
-            <Checkbox value='7'>9カ月</Checkbox>
-            <Checkbox value='8'>10カ月</Checkbox>
-            <Checkbox value='9'>11カ月</Checkbox>
-            <Checkbox value='10'>1年</Checkbox>
+            <Checkbox value='1'>半日</Checkbox>
+            <Checkbox value='2'>1日</Checkbox>
+            <Checkbox value='3'>2～3日</Checkbox>
+            <Checkbox value='4'>4～5日</Checkbox>
+            <Checkbox value='5'>6～7日</Checkbox>
+            <Checkbox value='6'>2週間以内</Checkbox>
+            <Checkbox value='7'>1カ月以内</Checkbox>
+            <Checkbox value='8'>3カ月以内</Checkbox>
+            <Checkbox value='9'>半年以内</Checkbox>
+            <Checkbox value='10'>1年以内</Checkbox>
             <Checkbox value='11'>1年以上</Checkbox>
         </Stack>
         </CheckboxGroup>

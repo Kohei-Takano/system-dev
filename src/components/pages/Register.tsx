@@ -1,4 +1,4 @@
-import { Box, Divider, Flex, Heading, Input, Stack } from "@chakra-ui/react";
+import { Box, Divider, Flex, Heading, Input, Stack, Text } from "@chakra-ui/react";
 import {ChangeEvent, memo,useEffect,useState,VFC}from"react";
 
 import { useHistory } from "react-router-dom";
@@ -20,14 +20,16 @@ export const Register: VFC = memo(()=>{
 
     return( 
     <>
-    <Flex align="center" justify="center" height="70vh">
-        <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
+    <Flex align="center" justify="center"position="relative"minHeight={`calc(100vh - 120px)`}>
+        <Box bg="white" w="md" p={4} borderRadius="md" shadow="md">
             <Heading as="h1" size="lg" textAlign="center">新規登録</Heading>
             <Divider my={4}/>
             <Stack spacing={6} py={4} px={10}>
                 <Input placeholder="メールアドレス" value={mailAddress} onChange={onChangeMailAddress}/>
+                <Text>※このメールアドレスは本サービス以外では利用いたしません。</Text>
                 <Input placeholder="パスワード" value={password} onChange={onChangePassword}/>
                 <Input placeholder="パスワード再入力" value={password2} onChange={onChangePassword2}/>
+                <Text>※パスワードは8文字以上ご入力ください。</Text>
                 <MainButton  loading={loading} onClick={onClickRegister}>登録</MainButton>
             </Stack>
         </Box>        

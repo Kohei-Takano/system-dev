@@ -86,25 +86,25 @@ export const RecruitmentDetail: VFC = memo(()=>{
     const changeTime:string[]=findRecruit.time.map((oneTime:string)=>{
         switch(oneTime){
             case "1":
-            return "3カ月以下";
+            return "半日";
             case "2":
-            return "4カ月";
+            return "1日";
             case "3":
-            return "5カ月";
+            return "2～3日";
             case "4":
-            return "6カ月";
+            return "4～5日";
             case "5":
-            return "7カ月";
+            return "6～7日";
             case "6":
-            return "8カ月";
+            return "2週間以内";
             case "7":
-            return "9カ月";
+            return "1カ月以内";
             case "8":
-            return "10カ月";
+            return "3カ月以内";
             case "9":
-            return "11カ月";
+            return "半年以内";
             case "10":
-            return "1年";
+            return "1年以内";
             case "11":
             return "1年以上";
             default:
@@ -186,9 +186,9 @@ const recruitPerson=users.find((user)=>{
             <WrapItem key={user.userid} >
                 <UserCard 
                     userid={user.userid}
-                    imageUrl="https://source.unsplash.com/random" 
+                    //imageUrl="https://source.unsplash.com/random" 
                     userName={user.username} 
-                    industry={user.industry}
+                    programming={user.programming}
                     onClick={onClickUserCard}
                 />
             </WrapItem>

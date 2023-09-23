@@ -19,8 +19,11 @@ export const Home: VFC = memo(()=>{
         username: string;
         industry: string[];
         processedOccupation: string[];
-        processedProgramming: string[];
-      } | null>(null);
+        programming: string[];
+        participationNumber:number,
+        url1:string;
+        url2:string;
+      } | null|undefined>(null);
 
       const {recruitTeam}=useRecruitTeam();
       const {goFriends}=useGoFriends()
@@ -36,8 +39,13 @@ export const Home: VFC = memo(()=>{
       }, [history]);
     useEffect(() => {
         const FetchUserData = async () => {
+            try{
             const userData = await useUserData();
+            console.log(userData)
             setUserData(userData);
+            }catch (error) {
+                console.error("データの取得エラー:", error);
+              }
         }
         FetchUserData();
       }, []);
@@ -51,13 +59,11 @@ export const Home: VFC = memo(()=>{
     
     return( 
         <>
-        {userData === null?
-            <>
-            <Heading as="h1" p={6} size="3xl" textAlign="center">ホーム</Heading>
+        <Heading as="h1" p={6} size="3xl" textAlign="center">ホーム</Heading>
             <Wrap spacing="30px" p={{base:4,md:10}} justify="center">
                 <WrapItem>
                     <Stack textAlign="center">
-                        <BigButton  loading={loading} onClick={onClickGoUserSearch}>就活仲間を検索</BigButton>
+                        <BigButton  loading={loading} onClick={onClickGoUserSearch}>ユーザ検索</BigButton>
                     </Stack>
                 </WrapItem>
                 <WrapItem>
@@ -71,62 +77,44 @@ export const Home: VFC = memo(()=>{
                     </Stack>
                 </WrapItem>
             </Wrap>
-            <Flex align="center" justify="center" height="30vh">
-            <Box w="sm">
-            <Stack spacing={6} py={4} px={10}>
-                <MainButton loading={loading} onClick={onClickGoUserRegister}>登録情報変更</MainButton>
-            </Stack>
-        </Box>
-    </Flex>
-    </>:
+        {userData === null?(
+        <p>Loading...</p>
+        ):(
         <>
-        <Heading as="h1" p={6} size="3xl" textAlign="center">ホーム</Heading>
-        <Wrap spacing="30px" p={{base:4,md:10}} justify="center">
-            <WrapItem>
-                <Stack textAlign="center">
-                    <BigButton  loading={loading} onClick={onClickGoUserSearch}>就活仲間を検索</BigButton>
-                </Stack>
-            </WrapItem>
-            <WrapItem>
-                <Stack textAlign="center">
-                    <BigButton loading={loading} onClick={onClickGoCoDeveloper}>共同開発者を探す</BigButton>
-                </Stack>
-            </WrapItem>
-            <WrapItem>
-                <Stack textAlign="center">
-                    <BigButton loading={loading} onClick={onClickGoFriendList}>フレンドリスト</BigButton>
-                </Stack>
-            </WrapItem>
-        </Wrap>
         <Heading as="h1" p={6} size="xl" textAlign="center">登録情報</Heading>
         <Flex align="center" justify="center" height="200px">
-            <Box bg="white" w="2xl" p={4} borderRadius="md" shadow="md">
+            <Box bg="white" w="4xl" p={4} borderRadius="md" shadow="md">
                 <Heading as="h2" p={6} size="md" textAlign="center">ユーザ名：{userData?.username}</Heading>
             </Box>
         </Flex>
-        <Flex align="center" justify="center" height="80px">
-            <Box bg="white" w="2xl" p={4} borderRadius="md" shadow="md">
-            <Heading as="h2" p={6} size="md" textAlign="center">志望業界：{userData?.industry.join(", ")}</Heading>
+        <Flex align="center" justify="center" height="70px">
+            <Box bg="white" w="4xl" p={4} borderRadius="md" shadow="md">
+            <Heading as="h2" p={6} size="md" textAlign="center">志望業界・現在の業界：{userData?.industry.join(", ")}</Heading>
             </Box>
         </Flex>
         <Flex align="center" justify="center" height="200px">
-            <Box bg="white" w="2xl" p={4} borderRadius="md" shadow="md">
-            <Heading as="h2" p={6} size="md" textAlign="center">志望職種：{userData?.processedOccupation.join(", ")}</Heading>
+            <Box bg="white" w="4xl" p={4} borderRadius="md" shadow="md">
+            <Heading as="h2" p={6} size="md" textAlign="center">志望職種・現在の職種：{userData?.processedOccupation.join(", ")}</Heading>
             </Box>
         </Flex>
-        <Flex align="center" justify="center" height="80px">
-            <Box bg="white" w="2xl" p={4} borderRadius="md" shadow="md">
-            <Heading as="h2" p={6} size="md" textAlign="center">得意なプログラミング言語：{userData?.processedProgramming.join(", ")}</Heading>
+        <Flex align="center" justify="center" height="70px">
+            <Box bg="white" w="4xl" p={4} borderRadius="md" shadow="md">
+            <Heading as="h2" p={6} size="md" textAlign="center">得意なプログラミング言語：{userData?.programming.join(", ")}</Heading>
             </Box>
         </Flex>
-        <Flex align="center" justify="center" height="30vh">
-            <Box w="sm">
-            <Stack spacing={6} py={4} px={10}>
-                <MainButton loading={loading} onClick={onClickGoUserRegister}>登録情報変更</MainButton>
-            </Stack>
-        </Box>
-    </Flex>
+        <Flex align="center" justify="center" height="200px">
+            <Box bg="white" w="4xl" p={4} borderRadius="md" shadow="md">
+            <Heading as="h2" p={6} size="md" textAlign="center">募集に参加した回数：{userData?.participationNumber}</Heading>
+            </Box>
+        </Flex>
+        <Flex align="center" justify="center" height="140px" mb={12}>
+            <Box bg="white" w="4xl" p={4} borderRadius="md" shadow="md">
+            <Heading as="h2" p={6} size="md" textAlign="center">記述したコードのURL：{userData?.url1}</Heading>
+            <Heading as="h2" p={6} size="md" textAlign="center">制作物のURL：{userData?.url2}</Heading>
+            </Box>
+        </Flex>
     </>
+    )
 }
 </>
     );

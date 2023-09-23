@@ -22,7 +22,7 @@ export const useRegister=()=>{
             localStorage.setItem("loggedInUser", JSON.stringify(userCredential.user))
             setLoginUser(userCredential.user);
             showMessage({title:"登録しました",status:"success"})
-            history.push("/home/user_info");
+            history.push("/user_info");
             // ...
             }else{
                 showMessage({title:"エラー",status:"error"})

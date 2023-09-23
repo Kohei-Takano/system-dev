@@ -93,11 +93,6 @@ export const homeRoutes = [
         children:<FriendsList/>
     },
     {
-        path:"/user_info",
-        exact:true,
-        children:<UserRegister/>
-    },
-    {
         path:"*",
         exact:false,
         children:<Page404/>

@@ -39,6 +39,7 @@ export const ApplicationList: VFC = memo(()=>{
     return (
         <>
     <Heading as="h1" p={6} size="3xl" textAlign="center">参加申請一覧</Heading>
+    <Box position="relative"minHeight={`calc(100vh - 290px)`}>
     {loading ? (
         <Center h="100vh">
             <Spinner/>
@@ -56,7 +57,7 @@ export const ApplicationList: VFC = memo(()=>{
         ))}
     </Wrap>
     
-    )}
+    )}</Box>
     <ApplicationModal list={selectedUser}isOpen={isOpen} onClose={onClose}/>
     </>
     )

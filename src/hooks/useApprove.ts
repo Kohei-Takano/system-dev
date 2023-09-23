@@ -1,15 +1,21 @@
-import { doc, deleteDoc, addDoc, collection, updateDoc } from "firebase/firestore";
+import { doc, deleteDoc, addDoc, collection, updateDoc, query, where, getDocs } from "firebase/firestore";
 import { useMessage } from "./useMessage";
 import { useCallback, useState } from "react";
 import { getAuth } from "firebase/auth";
 import { db } from "../firebase";
 import { useMembers } from "./useMembers";
 import { useList } from "./useList";
+import { User } from "../types/api/user";
 
+export type Data={
+  docId: string;
+  participationNumber: number;
+};
 export const useApprove=()=>{
     const {showMessage}=useMessage();
 
     const [loading,setLoading]=useState(false);
+    const [userid,setUserid]=useState<Data|null>();
     const {members}=useMembers();
     const {list}=useList();
 
@@ -36,14 +42,35 @@ export const useApprove=()=>{
                       i--; // 配列が縮小したため、インデックスを調整
                     }
                   }
-                
-                
+                  const row:Data[]=[]
+                  const q = query(collection(db, "userinfo"), where("userid", "==", findList?.userid));
+                  const querySnapshot = await getDocs(q);
+                  console.log(!querySnapshot.empty)
+            if(!querySnapshot.empty){    
+                querySnapshot.forEach((doc) => {
+                const docData=doc.data()
+                const participationNumber:number=docData.participationNumber
+                const docId:string=doc.id
+                const data={docId,participationNumber}
+                row.push(data);
+            // doc.data() is never undefined for query doc snapshots
+            }); 
+          
+          
+          
+            
+            if(row[0]){
+              const newNumber=row[0].participationNumber+1
+                await updateDoc(doc(db,'userinfo',row[0].docId),{
+                  participationNumber:newNumber,
+                })
+              }
                 showMessage({title:"応募申請を承認しました",status:"success"})
-                }
+            }
             }
                 setLoading(false);
                 
-        }
+        }}
         catch(error){
                 showMessage({title:"応募申請を承認できませんでした",status:"error"})
             }finally{setLoading(false)}

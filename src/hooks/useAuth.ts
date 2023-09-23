@@ -23,7 +23,7 @@ export const useAuth=()=>{
                 setLoginUser(userCredential.user);
                 showMessage({title:"ログインしました",status:"success"})
                 history.push("/home");
-                window.location.reload();
+                //window.location.reload();
             }else{
                 showMessage({title:"ユーザが見つかりません",status:"error"})
                 setLoading(false);

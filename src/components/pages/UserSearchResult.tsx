@@ -62,6 +62,10 @@ export const UserSearchResult: VFC = memo(()=>{
     return(
     <>
     <Heading as="h1" p={6} fontSize="3xl" textAlign="center">検索結果</Heading>
+    <Box 
+        // フッターが固定入力の下に表示されるように、次のCSSスタイルを追加
+        position="relative"
+        minHeight={`calc(100vh - 500px)`}>
     {loading ? (
         <Center h="100vh">
             <Spinner/>
@@ -72,15 +76,15 @@ export const UserSearchResult: VFC = memo(()=>{
             <WrapItem key={user.userid} >
                 <UserCard 
                     userid={user.userid}
-                    imageUrl="https://source.unsplash.com/random" 
+                    //imageUrl="https://source.unsplash.com/random" 
                     userName={user.username} 
-                    industry={user.industry}
+                    programming={user.programming}
                     onClick={onClickUser}
                 />
             </WrapItem>
         ))}
     </Wrap>
-        )}
+        )}</Box>
     <Flex align="center" justify="center" height="30vh">
         <Box w="sm">
             <Stack spacing={6} py={4} px={10}>

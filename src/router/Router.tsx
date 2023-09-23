@@ -18,6 +18,9 @@ import { ParticipationProvider } from "../providers/ParticipationProvider";
 import { ParticipantMessagesProvider } from "../providers/ParticipantMessagesProvider";
 import { FriendMessagesProvider } from "../providers/FriendMessagesProvider";
 import { FriendsProvider } from "../providers/FriendsProvider";
+import { Privacy } from "../components/pages/Privacy";
+import { FooterLayout } from "../components/templates/FooterLayout";
+import { UserRegister } from "../components/pages/UserRegister";
 
 export const Router:FC=memo(()=>{
     return(
@@ -35,23 +38,27 @@ export const Router:FC=memo(()=>{
             <UsersProvider>
                 <FriendMessagesProvider>
             <Route exact path="/"> 
-                <Login/>
+                <FooterLayout><Login/></FooterLayout>
             </Route>
             <Route path="/register">
-                <Register/>
-            </Route> 
+                <FooterLayout><Register/></FooterLayout>
+            </Route>
+            <Route path="/user_info">
+                <FooterLayout><UserRegister/></FooterLayout>
+            </Route>
             <Route path="/home" render={({match:{url}})=>(
                 <Switch>
                     {homeRoutes.map((route)=>(
                         
                         <Route key={route.path} exact={route.exact} path={`${url}${route.path}`}>
-                            <HeaderLayout>{route.children}</HeaderLayout>
+                            <FooterLayout><HeaderLayout>{route.children}</HeaderLayout></FooterLayout>
                         </Route>
                        
                     ))} 
                 </Switch>
             )}
-            /></FriendMessagesProvider>
+            /> 
+            </FriendMessagesProvider>
             </UsersProvider>
             </ListProvider>
             </ParticipantMessagesProvider>
@@ -64,7 +71,7 @@ export const Router:FC=memo(()=>{
             </FriendsProvider>
             </LoginUserProvider>
             <Route path="*">
-                <Page404/>
+                <FooterLayout><Page404/></FooterLayout>
             </Route>
         </Switch>
                 )

@@ -12,7 +12,7 @@ export const useUserRegister=()=>{
     const [loading,setLoading]=useState(false);
 
     const auth = getAuth();
-    const userRegister=useCallback(async(username:string|null,industry:string[],occupation:string[],programming:string[])=>{
+    const userRegister=useCallback(async(username:string|null,industry:string[],occupation:string[],programming:string[],url1:string|null,url2:string|null)=>{
         setLoading(true);
         if(username||industry||occupation||programming){
             await addDoc(collection(db,"userinfo"),{
@@ -20,7 +20,10 @@ export const useUserRegister=()=>{
                 industry:industry,
                 occupation:occupation,
                 programming:programming,
-                userid:auth.currentUser?.uid
+                userid:auth.currentUser?.uid,
+                participationNumber:0,
+                url1:url1,
+                url2:url2
             });
             setLoading(false);
             history.push("/home")
